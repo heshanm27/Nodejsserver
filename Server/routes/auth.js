@@ -66,8 +66,9 @@ router.post("/login", async (req, res) => {
 
     const { password, ...others } = user._doc;
 
-    //send response with user object and jwt token
+    //set cookies
     res.cookie("jwtToken", accessToken);
+    //send response with user object and jwt token
     res.status(201).json({ ...others, accessToken });
   } catch (err) {
     res.status(500).json(err.message);
