@@ -1,16 +1,24 @@
-//express js import
+// import
 const express = require("express");
 const app = express();
-//mongosse import
 const mongoose = require("mongoose");
-//import dotenv and config
 require("dotenv").config();
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
+
+//cors oprions
+const corsOptions = {
+  origin: "http://localhost:3000",
+  method: ["GEt", "POST", "PUT", "DELETE"],
+  credentials: true,
+};
 
 //custome routes
 const userRoute = require("./routes/user");
 const authRoute = require("./routes/auth");
 const billRoute = require("./routes/bill");
 const warrentyRoute = require("./routes/warrenty");
+
 //database connetion
 mongoose
   .connect(process.env.MONGO_URL)
@@ -21,15 +29,11 @@ mongoose
     console.log(err.message);
   });
 
-//make express use json API
+//middleware
 app.use(express.json());
+app.use(cookieParser());
+app.use(cors(corsOptions));
 
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
-  res.header("Access-Control-Allow-Headers", "Content-Type");
-  next();
-});
 //user api end point
 app.use("/api/user", userRoute);
 app.use("/api/auth", authRoute);

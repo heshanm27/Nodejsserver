@@ -34,6 +34,7 @@ router.post("/register", async (req, res) => {
 router.post("/login", async (req, res) => {
   try {
     //search if any user has email in database
+
     const user = await User.findOne({ email: req.body.email });
     if (!user) {
       res.status(401).json("User Does Not Exist");
@@ -66,6 +67,7 @@ router.post("/login", async (req, res) => {
     const { password, ...others } = user._doc;
 
     //send response with user object and jwt token
+    res.cookie("jwtToken", accessToken);
     res.status(201).json({ ...others, accessToken });
   } catch (err) {
     res.status(500).json(err.message);
