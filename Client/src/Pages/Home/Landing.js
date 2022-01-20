@@ -15,12 +15,9 @@ import {
   useTheme,
   useMediaQuery,
 } from "@material-ui/core";
-import FrontCard from "../../component/Card";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import { Link as Scroll } from "react-scroll";
 import bgsvg from "../../img/bg.svg";
-
-import { background } from "@chakra-ui/react";
 const userStyle = makeStyles((theme) => ({
   mainroot: {
     minHeight: "100vh",

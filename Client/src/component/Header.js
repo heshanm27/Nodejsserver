@@ -17,8 +17,8 @@ import Navlink from "../Context/Navlink";
 import { useNavigate } from "react-router";
 import Brightness7Icon from "@material-ui/icons/Brightness7";
 import NightsStayIcon from "@material-ui/icons/NightsStay";
-import DashboardRoundedIcon from "@material-ui/icons/DashboardRounded";
-import logo from "../img/gm.png";
+import { useSelector, useDispatch } from "react-redux";
+import { changeDarkMode } from "../Redux/DarkmodeSlice";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,8 +38,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Header = (props) => {
-  const { darkmode, setDarkMode } = props;
+const Header = () => {
+  const { darkModeSet } = useSelector((state) => state.darkMode);
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
   const { currentUser, logout } = useAuth();
@@ -58,16 +59,16 @@ const Header = (props) => {
         elevation={0}
       >
         <Toolbar className={classes.toolbar}>
-          {/* <Typography
+          <Typography
             variant={reslution ? "h7" : "h6"}
             className={classes.title}
             color="textPrimary"
           >
             Rosacrd.com
-          </Typography> */}
-          <div>
-            <img src={logo} width="20%" height="20%" />
-          </div>
+          </Typography>
+          {/* <div>
+            <img src={logo} width="10%" height="10%" />
+          </div> */}
           {!currentUser && (
             <Link to="/login">
               {" "}
@@ -84,14 +85,14 @@ const Header = (props) => {
             <Navlink
               to="/dashbord"
               name="DashBord"
-              color={darkmode ? "textPrimary" : "rgba(0, 0, 0, 0.87)"}
+              color={darkModeSet ? "textPrimary" : "rgba(0, 0, 0, 0.87)"}
             />
           )}
           {currentUser && (
             <Navlink
               to="/logout"
               name="Logout"
-              color={darkmode ? "Primary" : "rgba(0, 0, 0, 0.87)"}
+              color={darkModeSet ? "Primary" : "rgba(0, 0, 0, 0.87)"}
               onClick={async (e) => {
                 e.preventDefault();
                 logout();
@@ -99,8 +100,8 @@ const Header = (props) => {
               }}
             />
           )}
-          <IconButton onClick={() => setDarkMode(!darkmode)}>
-            {darkmode ? <NightsStayIcon /> : <Brightness7Icon />}
+          <IconButton onClick={() => dispatch(changeDarkMode())}>
+            {darkModeSet ? <NightsStayIcon /> : <Brightness7Icon />}
           </IconButton>
         </Toolbar>
       </AppBar>

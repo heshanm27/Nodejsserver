@@ -11,7 +11,6 @@ import {
   Paper,
 } from "@material-ui/core";
 import { purple } from "@material-ui/core/colors";
-import { getByDisplayValue } from "@testing-library/react";
 import { useState } from "react";
 import FrontCard from "../../component/Card";
 const userStyle = makeStyles((theme) => ({

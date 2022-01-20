@@ -29,7 +29,12 @@ import { ListIcon } from "@chakra-ui/react";
 import Brightness7Icon from "@material-ui/icons/Brightness7";
 import NightsStayIcon from "@material-ui/icons/NightsStay";
 import logo from "../../img/gm.png";
-function DashBordDarwer({ darkmode, setDarkMode }) {
+import { useSelector, useDispatch } from "react-redux";
+import { changeDarkMode } from "../../Redux/DarkmodeSlice";
+
+function DashBordDarwer() {
+  const { darkModeSet } = useSelector((state) => state.darkMode);
+  const dispatch = useDispatch();
   const theme = useTheme();
   const reslution = useMediaQuery(theme.breakpoints.down("sm"));
   const classes = useStyles();
@@ -107,16 +112,16 @@ function DashBordDarwer({ darkmode, setDarkMode }) {
           })}
           <ListItem
             button
-            label="darkMode"
+            label={darkModeSet ? "DarkMode" : "LightMode"}
             key={6}
             className={classes.menuitem}
-            onClick={() => setDarkMode(!darkmode)}
+            onClick={() => dispatch(changeDarkMode())}
           >
             <ListItemIcon>
-              {darkmode ? <NightsStayIcon /> : <Brightness7Icon />}
+              {darkModeSet ? <NightsStayIcon /> : <Brightness7Icon />}
             </ListItemIcon>
             <ListItemText
-              primary="DarkMode"
+              primary={darkModeSet ? "LightMode" : "DarkMode"}
               primaryTypographyProps={{ varient: "body2" }}
             />
           </ListItem>

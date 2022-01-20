@@ -40,4 +40,35 @@ router.put("/:id", async (req, res) => {
   }
 });
 
+router.get("/income", verifyTokenAndAuthorized, async (req, res) => {
+  const date = new Date();
+  const lastMonth = new Date(date.setMonth(date.getMonth() - 1));
+  console.log(lastMonth);
+  const previousMonth = new Date(lastMonth.setMonth(lastMonth.getMonth() - 1));
+  console.log(previousMonth);
+  try {
+    const income = await Bill.aggregate([
+      { $match: { createdAt: { $gte: previousMonth } } },
+      {
+        $project: {
+          month: { $month: "$createdAt" },
+          sales: "$amount",
+          billcount: "$billNo",
+        },
+      },
+      {
+        $group: {
+          _id: "$month",
+          total: { $sum: "$sales" },
+          count: { $sum: 1 },
+        },
+      },
+    ]);
+    console.log(income);
+    res.status(200).json(income);
+  } catch (err) {
+    res.status(500).json(err.message);
+  }
+});
+
 module.exports = router;

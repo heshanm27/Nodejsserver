@@ -20,7 +20,7 @@ import { useState } from "react";
 import Setting from "../Pages/Setting";
 import Graph from "../Pages/Graph";
 import { useAuth } from "../Context/AuthContext";
-
+import { useSelector } from "react-redux";
 const theme = createTheme({
   palette: {
     primary: {
@@ -60,27 +60,20 @@ const themeDark = createTheme({
 
 function App() {
   const classes = useStyles();
-  const [darkmode, setDarkMode] = useState(false);
-  const { currentUser } = useAuth();
+  // const [darkmode, setDarkMode] = useState(false);
+
+  const { darkModeSet } = useSelector((state) => state.darkMode);
 
   return (
-    <ThemeProvider theme={darkmode ? themeDark : theme}>
+    <ThemeProvider theme={darkModeSet ? themeDark : theme}>
       <ChakraProvider>
         <Routes>
-          <Route
-            exact
-            path="/"
-            element={<Home darkmode={darkmode} setDarkMode={setDarkMode} />}
-          />
+          <Route exact path="/" element={<Home />} />
 
           <Route path="/login" element={<Login />} />
           <Route path="/forgotpassword" element={<ForgotPassword />} />
 
-          <Route
-            element={
-              <DashBordDarwer darkmode={darkmode} setDarkMode={setDarkMode} />
-            }
-          >
+          <Route element={<DashBordDarwer />}>
             <Route path="/dashbord" element={<Dashbord />} />
             <Route path="/warrenty" element={<Warrenty />} />
             <Route path="/additem" element={<Additem />} />

@@ -1,14 +1,6 @@
-import {
-  Avatar,
-  Container,
-  Grid,
-  makeStyles,
-  Typography,
-} from "@material-ui/core";
+import { Container, Grid, makeStyles, Typography } from "@material-ui/core";
 import React, { Component, useEffect } from "react";
-import Slider from "react-slick";
 import AvatrFetch from "../../fetch/Avatar";
-import getData from "../../fetch/Avatar";
 
 const useStyles = makeStyles((theme) => ({
   root2: {
