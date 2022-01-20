@@ -28,6 +28,8 @@ import { useToast } from "@chakra-ui/react";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import clsx from "clsx";
+import { useDispatch } from "react-redux";
+import { login } from "../../Redux/userApi";
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -77,7 +79,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Login() {
-  const toast = useToast();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -86,7 +87,10 @@ export default function Login() {
   const [passwordError, setPasswordError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const classes = useStyles();
-  const { login } = useAuth();
+  // const { login } = useAuth();
+
+  //redux
+  const dispatch = useDispatch();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -111,9 +115,9 @@ export default function Login() {
   };
   const handleLogin = async (e) => {
     e.preventDefault();
-    // your login logic here
+    //  login logic here
 
-    if (validate()) {
+    /*  if (validate()) {
       console.log(validate());
       login(email, password)
         .then((res) => navigate("/dashbord"))
@@ -126,7 +130,9 @@ export default function Login() {
           });
         })
         .finally(() => setIsSubmitting(false));
-    }
+    }*/
+
+    login(dispatch, { email, password });
   };
 
   return (
