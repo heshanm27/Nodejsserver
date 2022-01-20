@@ -28,8 +28,8 @@ import { useToast } from "@chakra-ui/react";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import clsx from "clsx";
-import { useDispatch } from "react-redux";
 import { login } from "../../Redux/userApi";
+import { useSelector, useDispatch } from "react-redux";
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -86,6 +86,7 @@ export default function Login() {
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const { curruntUser, test } = useSelector((state) => state.user);
   const classes = useStyles();
   // const { login } = useAuth();
 
@@ -161,7 +162,7 @@ export default function Login() {
                 required
                 fullWidth
                 id="email"
-                label="Email Address"
+                label="Email"
                 name="email"
                 autoComplete="email"
                 value={email}
