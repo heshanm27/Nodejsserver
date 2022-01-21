@@ -107,7 +107,7 @@ export default function Login() {
 
     temp.Email =
       (/$^|.+@.+..+/.test(email) ? "" : "Email is Not Valid") ||
-      (email ? "" : "This Field is Required");
+      (email ? "" : "Email is Required");
     temp.Password = password ? "" : "This Field is Required";
     setErrors({
       ...temp,
@@ -118,22 +118,9 @@ export default function Login() {
     e.preventDefault();
     //  login logic here
 
-    /*  if (validate()) {
-      console.log(validate());
-      login(email, password)
-        .then((res) => navigate("/dashbord"))
-        .catch((e) => {
-          toast({
-            description: "Email Or PassWord Invalid",
-            status: "error",
-            duration: 9000,
-            isClosable: true,
-          });
-        })
-        .finally(() => setIsSubmitting(false));
-    }*/
-
-    login(dispatch, { email, password });
+    if (validate()) {
+      login(dispatch, { email, password });
+    }
   };
 
   return (
