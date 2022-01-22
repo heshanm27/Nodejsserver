@@ -59,13 +59,12 @@ const Header = () => {
         elevation={0}
       >
         <Toolbar className={classes.toolbar}>
-          <Typography
-            variant={reslution ? "h7" : "h6"}
-            className={classes.title}
-            color="textPrimary"
-          >
-            Rosacrd.com
-          </Typography>
+          <Link to="/" className={classes.title}>
+            {" "}
+            <Typography variant={reslution ? "h7" : "h6"} color="textPrimary">
+              Rosacrd.com
+            </Typography>
+          </Link>
           {/* <div>
             <img src={logo} width="10%" height="10%" />
           </div> */}

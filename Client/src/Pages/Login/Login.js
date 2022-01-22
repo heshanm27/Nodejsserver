@@ -30,6 +30,8 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import clsx from "clsx";
 import { login } from "../../Redux/userApi";
 import { useSelector, useDispatch } from "react-redux";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Header from "../../component/Header";
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -75,7 +77,14 @@ const useStyles = makeStyles((theme) => ({
     height: "100vh",
     marginTop: "-50px",
   },
-  conatiner: {},
+  circluerload: {
+    ["&.MuiCircularProgress-colorPrimary"]: {
+      color: "white",
+    },
+  },
+  container: {
+    marginTop: "100px",
+  },
 }));
 
 export default function Login() {
@@ -83,11 +92,11 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
-  const [emailError, setEmailError] = useState(false);
-  const [passwordError, setPasswordError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const { curruntUser, test } = useSelector((state) => state.user);
+  const { curruntUser, error, isFetching } = useSelector((state) => state.user);
   const classes = useStyles();
+  const errEmail = error && error.email;
+  const errPassword = error && error.password;
   // const { login } = useAuth();
 
   //redux
@@ -124,100 +133,132 @@ export default function Login() {
   };
 
   return (
-    <div className={classes.main}>
-      <Container component="main" maxWidth="sm" className={classes.conatiner}>
-        <Paper className={classes.paper}>
-          <CssBaseline />
-          <div className={classes.paper}>
-            <center>
-              <Avatar className={classes.avatar}>
-                <LockOutlinedIcon />
-              </Avatar>
-              <Typography component="h1" variant="h5">
-                Sign in
-              </Typography>
-            </center>
-            <form
-              className={classes.form}
-              noValidate
-              onSubmit={(e) => handleLogin(e)}
-            >
-              <TextField
-                variant="outlined"
-                margin="normal"
-                error={errors.Email ? true : false}
-                required
-                fullWidth
-                id="email"
-                label="Email"
-                name="email"
-                autoComplete="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                autoFocus
-                helperText={errors.Email}
-                color="secondary"
-              />
-              <FormControl
-                className={clsx(classes.margin, classes.textField)}
-                color="secondary"
-                variant="outlined"
+    <>
+      <Header />
+      <div className={classes.main}>
+        <br />
+        <Container
+          component="main"
+          maxWidth="sm"
+          className={classes.conatiner}
+          style={{ marginTop: "5%" }}
+        >
+          <Paper className={classes.paper}>
+            <CssBaseline />
+            <div className={classes.paper}>
+              <center>
+                <Avatar className={classes.avatar}>
+                  <LockOutlinedIcon />
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                  Sign in
+                </Typography>
+              </center>
+              <form
+                className={classes.form}
+                noValidate
+                onSubmit={(e) => handleLogin(e)}
               >
-                <InputLabel htmlFor="password">Password</InputLabel>
-                <OutlinedInput
-                  required
-                  name="password"
-                  type={showPassword ? "text" : "password"}
-                  id="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  autoComplete="current-password"
-                  color="secondary"
-                  error={errors.Password ? true : false}
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleShowPassword}
-                        onMouseDown={handleMouseDownPassword}
-                      >
-                        {showPassword ? <Visibility /> : <VisibilityOff />}
-                      </IconButton>
-                    </InputAdornment>
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  error={
+                    (errEmail ? true : false) || (errors.Email ? true : false)
                   }
-                  labelWidth={70}
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email"
+                  name="email"
+                  autoComplete="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  autoFocus
+                  helperText={error ? error.email : errors.Email}
+                  color="secondary"
                 />
-                {errors.Password && (
-                  <FormHelperText error={true}>Enter Password</FormHelperText>
-                )}
-              </FormControl>
-              <FormControlLabel
-                control={<Checkbox value="remember" color="secondary" />}
-                label="Remember me"
-              />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="secondary"
-                className={classes.submit}
-              >
-                Sign In
-              </Button>
-              <Grid container>
-                <Grid item xs>
-                  <Link href="forgotpassword" variant="body2" color="secondary">
-                    Forgot password?
-                  </Link>
+                <FormControl
+                  className={clsx(classes.margin, classes.textField)}
+                  color="secondary"
+                  variant="outlined"
+                >
+                  <InputLabel htmlFor="password">Password</InputLabel>
+                  <OutlinedInput
+                    required
+                    name="password"
+                    type={showPassword ? "text" : "password"}
+                    id="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    autoComplete="current-password"
+                    color="secondary"
+                    error={
+                      (errPassword ? true : false) ||
+                      (errors.Password ? true : false)
+                    }
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                        >
+                          {showPassword ? <Visibility /> : <VisibilityOff />}
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                    labelWidth={70}
+                  />
+                  {errors.Password && (
+                    <FormHelperText error={true}>Enter Password</FormHelperText>
+                  )}
+                  {errPassword && (
+                    <FormHelperText error={true}>
+                      {error.password}
+                    </FormHelperText>
+                  )}
+                </FormControl>
+                <FormControlLabel
+                  control={<Checkbox value="remember" color="secondary" />}
+                  label="Remember me"
+                />
+
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="secondary"
+                  className={classes.submit}
+                >
+                  {isFetching ? (
+                    <CircularProgress
+                      className={classes.circluerload}
+                      style={{ width: "20px", height: "20px" }}
+                    />
+                  ) : (
+                    "Sign In"
+                  )}
+                </Button>
+
+                <Grid container>
+                  <Grid item xs>
+                    <Link
+                      href="forgotpassword"
+                      variant="body2"
+                      color="secondary"
+                    >
+                      Forgot password?
+                    </Link>
+                  </Grid>
                 </Grid>
-              </Grid>
-            </form>
-          </div>
-          <Box mt={8}>
-            <Copyright />
-          </Box>
-        </Paper>
-      </Container>
-    </div>
+              </form>
+            </div>
+            <Box mt={8}>
+              <Copyright />
+            </Box>
+          </Paper>
+        </Container>
+      </div>
+    </>
   );
 }

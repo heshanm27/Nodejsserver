@@ -18,6 +18,7 @@ const userSchema = new mongoose.Schema(
     },
     isAdmin: { type: Boolean, default: false },
     profileImg: { type: String, default: "img" },
+    restlink: { type: String },
   },
   { timestamps: true }
 );

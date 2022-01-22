@@ -1,7 +1,8 @@
 const router = require("express").Router();
 const User = require("../models/User");
-const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const Transporter = require("../EmailComponent/Email");
+const nodemailer = require("nodemailer");
 
 const hadnleErrors = (err) => {
   let error = { email: "", password: "" };
@@ -73,11 +74,69 @@ router.post("/login", async (req, res) => {
     res.status(201).json({ userDetails });
   } catch (err) {
     const errors = hadnleErrors(err);
-    res.status(500).json({ errors });
+    res.status(400).json({ errors });
   }
 });
 
-router.get("/logout", async (req, res) => {
+router.post("/forgotPassword", async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const GotUser = await User.findOne({ email });
+
+    if (!GotUser) {
+      return res
+        .status(400)
+        .json({ error: "User with this email doesn't exist" });
+    }
+
+    const token = jwt.sign({ id: GotUser._id }, process.env.RESET_SEC, {
+      expiresIn: "20m",
+    });
+
+    const url = `${process.env.CLIENT_URL}resetpassword/${token}`;
+
+    const mailTemplate = {
+      from: process.env.USEREMAIL,
+      to: email,
+      subject: "PassWord Reset Instructions",
+      html: `Please click this Link to reset password: <a href="${url}">Click </a>`,
+    };
+    GotUser.updateOne({ restlink: token }, (err, success) => {
+      if (err) {
+        return res.status(500).json(err.message);
+      } else {
+        Transporter.sendMail(mailTemplate, function (err, info) {
+          if (err) {
+            return res.status(500).json({ error: err.message });
+          } else {
+            return res
+              .status(200)
+              .json({ success: "Further instruction sent to email" });
+          }
+        });
+      }
+    });
+  } catch (err) {
+    res.status(500).json({ error: err });
+  }
+});
+
+router.post("/ressetPassword", async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const GotUser = await User.findOne({ email });
+
+    if (!GotUser) {
+      return res
+        .status(400)
+        .json({ error: "User with this email doesn't exist" });
+    }
+  } catch (err) {}
+});
+
+router.get("/updatePassword", async (req, res) => {
   res.cookie("jwtToken", "", { maxAge: 1 });
 });
 module.exports = router;
