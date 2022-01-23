@@ -3,6 +3,7 @@ const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 const Transporter = require("../EmailComponent/Email");
 const nodemailer = require("nodemailer");
+const bcrypt = require("bcrypt");
 
 const hadnleErrors = (err) => {
   let error = { email: "", password: "" };
@@ -91,7 +92,7 @@ router.post("/forgotPassword", async (req, res) => {
     }
 
     const token = jwt.sign({ id: GotUser._id }, process.env.RESET_SEC, {
-      expiresIn: "20m",
+      expiresIn: "60m",
     });
 
     const url = `${process.env.CLIENT_URL}resetpassword/${token}`;
@@ -123,17 +124,45 @@ router.post("/forgotPassword", async (req, res) => {
 });
 
 router.post("/ressetPassword", async (req, res) => {
-  const { email } = req.body;
+  const { resetlink, password } = req.body;
+
+  const salt = await bcrypt.genSalt();
+  newpassword = await bcrypt.hash(password, salt);
 
   try {
-    const GotUser = await User.findOne({ email });
-
-    if (!GotUser) {
-      return res
-        .status(400)
-        .json({ error: "User with this email doesn't exist" });
+    if (resetlink) {
+      const verified = jwt.verify(resetlink, process.env.RESET_SEC);
+      User.findOne({ restlink: resetlink })
+        .then((user) => {
+          user
+            .updateOne({
+              $set: { password: newpassword },
+            })
+            .then(() => {
+              return res
+                .status(200)
+                .json({ message: "Password successfuly changed" });
+            })
+            .catch((err) => {
+              return res
+                .status(500)
+                .json({ error: "Error occur while reseting password" });
+            });
+        })
+        .catch((err) => {
+          return res
+            .status(400)
+            .json({ error: "User with this email doesnt exists" });
+        });
+    } else {
+      return res.status(400).json({ error: "Authentiation Error" });
     }
-  } catch (err) {}
+  } catch (err) {
+    if (err.message === "invalid signature" || "jwt expired") {
+      return res.status(400).json({ error: "Jwt token invalid or expired" });
+    }
+    console.log(err.message);
+  }
 });
 
 router.get("/updatePassword", async (req, res) => {
