@@ -70,7 +70,7 @@ function App() {
             element={curruntUser ? <Navigate to="/dashbord" /> : <Login />}
           />
           <Route path="/forgotpassword" element={<ForgotPassword />} />
-          <Route path="/resetpassword/:token" element={<ResetPassword />} />
+          <Route path="/resetpassword/:resetlink" element={<ResetPassword />} />
 
           <Route element={<DashBordDarwer />}>
             <Route path="/dashbord" element={<Dashbord />} />

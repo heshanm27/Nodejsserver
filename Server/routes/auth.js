@@ -113,7 +113,7 @@ router.post("/forgotPassword", async (req, res) => {
           } else {
             return res
               .status(200)
-              .json({ success: "Further instruction sent to email" });
+              .json({ success: "Further instruction send it to your email" });
           }
         });
       }

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import RefreshIcon from "@material-ui/icons/Refresh";
 import { makeStyles } from "@material-ui/core/styles";
 import { useToast } from "@chakra-ui/react";
@@ -16,6 +16,8 @@ import {
   CssBaseline,
 } from "@material-ui/core";
 import PasswordInput from "../../component/Inputs/PasswordInput";
+import { publicRequest } from "../../axiosRequestMethod/defaultAxios";
+import Notification from "../../component/Notification/Notification";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -57,8 +59,17 @@ export default function ResetPassword() {
   const toast = useToast();
   const [errors, setErrors] = useState({});
   const classes = useStyles();
+  const navigate = useNavigate();
   const [password, setPassword] = useState("");
   const [confrimPassword, setConfirmPassword] = useState("");
+  const [isPending, setIsPending] = useState(false);
+  const { resetlink } = useParams();
+  const [notify, setNotify] = useState({
+    isOpen: false,
+    message: "",
+    type: "",
+  });
+
   function Copyright() {
     return (
       <Typography variant="body2" color="textSecondary" align="center">
@@ -79,7 +90,9 @@ export default function ResetPassword() {
     } else {
       console.log("false");
     }
-    temp.Password = password ? "" : "This Field is Required";
+    temp.Password =
+      (password ? "" : "This Field is Required") ||
+      (password.length > 6 ? "" : "Password not strong");
 
     if (confrimPassword != "") {
       if (password !== confrimPassword && password != "") {
@@ -99,8 +112,30 @@ export default function ResetPassword() {
   const handleLogin = async (e) => {
     e.preventDefault();
     // your login logic here
-
+    console.log("hello");
     if (validate()) {
+      try {
+        const success = await publicRequest.post("/auth/ressetPassword", {
+          password,
+          resetlink,
+        });
+
+        if (success) {
+          setNotify({
+            isOpen: true,
+            message: success.data.message,
+            type: "success",
+          });
+
+          navigate("/login");
+        }
+      } catch (err) {
+        setNotify({
+          isOpen: true,
+          message: err.response.data.error,
+          type: "error",
+        });
+      }
     }
   };
 
@@ -168,6 +203,7 @@ export default function ResetPassword() {
               <Copyright />
             </Box>
           </Paper>
+          <Notification notify={notify} setNotify={setNotify} />
         </Container>
       </div>
     </div>

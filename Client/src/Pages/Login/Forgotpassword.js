@@ -14,7 +14,9 @@ import { Paper } from "@material-ui/core";
 import { useToast } from "@chakra-ui/react";
 import Header from "../../component/Header";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-
+import { publicRequest } from "../../axiosRequestMethod/defaultAxios";
+import Notification from "../../component/Notification/Notification";
+import CircularProgress from "@material-ui/core/CircularProgress";
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -46,6 +48,11 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     height: "100vh",
   },
+  circluerload: {
+    ["&.MuiCircularProgress-colorPrimary"]: {
+      color: theme.palette.background.paper,
+    },
+  },
   link: {
     color: theme.palette.secondary.main,
   },
@@ -55,6 +62,14 @@ export default function ForgotPassword() {
   const toast = useToast();
   const [email, setEmail] = useState("");
   const classes = useStyles();
+  const [errors, setErrors] = useState({});
+  const [isPending, setIsPending] = useState(false);
+
+  const [notify, setNotify] = useState({
+    isOpen: false,
+    message: "",
+    type: "",
+  });
 
   function Copyright() {
     return (
@@ -68,10 +83,48 @@ export default function ForgotPassword() {
       </Typography>
     );
   }
+  const validate = () => {
+    let temp = {};
+    temp.Email =
+      (/$^|.+@.+..+/.test(email) ? "" : "Email is Not Valid") ||
+      (email ? "" : "Email is Required");
 
+    setErrors({
+      ...temp,
+    });
+
+    return Object.values(temp).every((x) => x == "");
+  };
   const handleLogin = async (e) => {
     e.preventDefault();
     // your login logic here
+    if (validate()) {
+      try {
+        setIsPending(true);
+        const success = await publicRequest.post("auth/forgotPassword", {
+          email,
+        });
+
+        if (success) {
+          setIsPending(false);
+          setNotify({
+            isOpen: true,
+            message: success.data.success,
+            type: "success",
+          });
+        }
+        setEmail("");
+      } catch (err) {
+        console.log(err.response);
+        setNotify({
+          isOpen: true,
+          message: err.response.data.error,
+          type: "error",
+        });
+        setIsPending(false);
+        setEmail("");
+      }
+    }
   };
 
   return (
@@ -105,9 +158,11 @@ export default function ForgotPassword() {
                   name="email"
                   autoComplete="email"
                   value={email}
+                  error={errors.Email ? true : false}
                   onChange={(e) => setEmail(e.target.value)}
                   autoFocus
                   color="secondary"
+                  helperText={errors.Email}
                 />
                 <Button
                   type="submit"
@@ -116,7 +171,14 @@ export default function ForgotPassword() {
                   color="secondary"
                   className={classes.submit}
                 >
-                  Reset
+                  {isPending ? (
+                    <CircularProgress
+                      className={classes.circluerload}
+                      style={{ width: "20px", height: "20px" }}
+                    />
+                  ) : (
+                    "Reset"
+                  )}
                 </Button>
                 <Grid container>
                   <Grid item xs>
@@ -133,6 +195,8 @@ export default function ForgotPassword() {
               <Copyright />
             </Box>
           </Paper>
+
+          <Notification notify={notify} setNotify={setNotify} />
         </Container>
       </div>
     </div>
