@@ -1,19 +1,21 @@
 import React, { useState } from "react";
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
 import { Link } from "react-router-dom";
-import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
 import RefreshIcon from "@material-ui/icons/Refresh";
-import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
-import { Paper } from "@material-ui/core";
 import { useToast } from "@chakra-ui/react";
 import Header from "../../component/Header";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import {
+  Paper,
+  Container,
+  Typography,
+  Box,
+  Grid,
+  Avatar,
+  Button,
+  CssBaseline,
+} from "@material-ui/core";
+import PasswordInput from "../../component/Inputs/PasswordInput";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -51,11 +53,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ForgotPassword() {
+export default function ResetPassword() {
   const toast = useToast();
-  const [email, setEmail] = useState("");
+  const [errors, setErrors] = useState({});
   const classes = useStyles();
-
+  const [password, setPassword] = useState("");
+  const [confrimPassword, setConfirmPassword] = useState("");
   function Copyright() {
     return (
       <Typography variant="body2" color="textSecondary" align="center">
@@ -69,11 +72,45 @@ export default function ForgotPassword() {
     );
   }
 
+  const validate = () => {
+    let temp = {};
+    if (password) {
+      console.log("true");
+    } else {
+      console.log("false");
+    }
+    temp.Password = password ? "" : "This Field is Required";
+
+    if (confrimPassword != "") {
+      if (password !== confrimPassword && password != "") {
+        temp.confrimPassword = "Password and confrim password doesnt match";
+      }
+    } else {
+      temp.confrimPassword = confrimPassword ? "" : "This Field is Required";
+    }
+
+    setErrors({
+      ...temp,
+    });
+    console.log(temp);
+    return Object.values(temp).every((x) => x == "");
+  };
+
   const handleLogin = async (e) => {
     e.preventDefault();
     // your login logic here
+
+    if (validate()) {
+    }
   };
 
+  const hadnlePassword = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const hadnleConfrimPassword = (e) => {
+    setConfirmPassword(e.target.value);
+  };
   return (
     <div className={classes.roots} id="review">
       <Header />
@@ -95,19 +132,17 @@ export default function ForgotPassword() {
                 noValidate
                 onSubmit={(e) => handleLogin(e)}
               >
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  autoFocus
-                  color="secondary"
+                <PasswordInput
+                  label="Password"
+                  value={password}
+                  setvalue={hadnlePassword}
+                  error={errors.Password}
+                />
+                <PasswordInput
+                  label="Confrim Password"
+                  value={confrimPassword}
+                  setvalue={hadnleConfrimPassword}
+                  error={errors.confrimPassword}
                 />
                 <Button
                   type="submit"

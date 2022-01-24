@@ -16,7 +16,7 @@ import { useStyles } from "../component/Drawer/DrawerStyle";
 import Setting from "../Pages/Setting";
 import Graph from "../Pages/Graph";
 import { useSelector } from "react-redux";
-
+import ResetPassword from "../Pages/Login/ResetPassword";
 const theme = createTheme({
   palette: {
     primary: {
@@ -70,7 +70,7 @@ function App() {
             element={curruntUser ? <Navigate to="/dashbord" /> : <Login />}
           />
           <Route path="/forgotpassword" element={<ForgotPassword />} />
-          <Route path="/resetpassword/:token" element={<ForgotPassword />} />
+          <Route path="/resetpassword/:token" element={<ResetPassword />} />
 
           <Route element={<DashBordDarwer />}>
             <Route path="/dashbord" element={<Dashbord />} />
