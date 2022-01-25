@@ -19,6 +19,7 @@ import Brightness7Icon from "@material-ui/icons/Brightness7";
 import NightsStayIcon from "@material-ui/icons/NightsStay";
 import { useSelector, useDispatch } from "react-redux";
 import { changeDarkMode } from "../Redux/DarkmodeSlice";
+import { logout } from "../Redux/userSlice";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,13 +41,12 @@ const useStyles = makeStyles((theme) => ({
 
 const Header = () => {
   const { darkModeSet } = useSelector((state) => state.darkMode);
+  const { curruntUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
-  const { currentUser, logout } = useAuth();
 
   const classes = useStyles();
-  const [checked, setChecked] = useState(false);
 
   const theme = useTheme();
   const reslution = useMediaQuery(theme.breakpoints.down("sm"));
@@ -68,7 +68,7 @@ const Header = () => {
           {/* <div>
             <img src={logo} width="10%" height="10%" />
           </div> */}
-          {!currentUser && (
+          {!curruntUser && (
             <Link to="/login">
               {" "}
               <Button
@@ -80,21 +80,22 @@ const Header = () => {
               </Button>
             </Link>
           )}
-          {currentUser && (
+          {curruntUser && (
             <Navlink
               to="/dashbord"
               name="DashBord"
-              color={darkModeSet ? "textPrimary" : "rgba(0, 0, 0, 0.87)"}
+              color={darkModeSet ? "  Primary" : "rgba(0, 0, 0, 0.87)"}
             />
           )}
-          {currentUser && (
+          {curruntUser && (
             <Navlink
               to="/logout"
               name="Logout"
               color={darkModeSet ? "Primary" : "rgba(0, 0, 0, 0.87)"}
               onClick={async (e) => {
                 e.preventDefault();
-                logout();
+                dispatch(logout());
+
                 navigate("/");
               }}
             />

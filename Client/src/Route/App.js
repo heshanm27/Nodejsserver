@@ -17,6 +17,7 @@ import Setting from "../Pages/Setting";
 import Graph from "../Pages/Graph";
 import { useSelector } from "react-redux";
 import ResetPassword from "../Pages/Login/ResetPassword";
+import ProtectedRoute from "./ProtectedRoute";
 const theme = createTheme({
   palette: {
     primary: {
@@ -71,15 +72,16 @@ function App() {
           />
           <Route path="/forgotpassword" element={<ForgotPassword />} />
           <Route path="/resetpassword/:resetlink" element={<ResetPassword />} />
-
-          <Route element={<DashBordDarwer />}>
-            <Route path="/dashbord" element={<Dashbord />} />
-            <Route path="/warrenty" element={<Warrenty />} />
-            <Route path="/additem" element={<Additem />} />
-            <Route path="/additem/warrenty" element={<Warrenty />} />
-            <Route path="/Setting" element={<Setting />} />
-            <Route path="/pdf" element={<Pdf />} />
-            <Route path="/graph" element={<Graph />} />
+          <Route element={<ProtectedRoute />}>
+            <Route element={<DashBordDarwer />}>
+              <Route path="/dashbord" element={<Dashbord />} />
+              <Route path="/warrenty" element={<Warrenty />} />
+              <Route path="/additem" element={<Additem />} />
+              <Route path="/additem/warrenty" element={<Warrenty />} />
+              <Route path="/Setting" element={<Setting />} />
+              <Route path="/pdf" element={<Pdf />} />
+              <Route path="/graph" element={<Graph />} />
+            </Route>
           </Route>
 
           <Route path="*" element={<NotFound />} />
