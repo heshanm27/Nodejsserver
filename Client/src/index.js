@@ -7,16 +7,18 @@ import { BrowserRouter } from "react-router-dom";
 import AuthContextProvider from "./Context/AuthContext";
 import { CssBaseline } from "@material-ui/core";
 import { Provider } from "react-redux";
-import store from "./Redux/store";
-
+import { store, persistor } from "./Redux/store";
+import { PersistGate } from "redux-persist/integration/react";
 ReactDOM.render(
   <Provider store={store}>
-    <AuthContextProvider>
-      <BrowserRouter>
-        <CssBaseline />
-        <App />
-      </BrowserRouter>
-    </AuthContextProvider>
+    <PersistGate loading={null} persistor={persistor}>
+      <AuthContextProvider>
+        <BrowserRouter>
+          <CssBaseline />
+          <App />
+        </BrowserRouter>
+      </AuthContextProvider>
+    </PersistGate>
   </Provider>,
   document.getElementById("root")
 );
