@@ -18,6 +18,7 @@ const userRoute = require("./routes/user");
 const authRoute = require("./routes/auth");
 const billRoute = require("./routes/bill");
 const warrentyRoute = require("./routes/warrenty");
+const vehicleRoute = require("./routes/vehicle");
 
 //database connetion
 mongoose
@@ -39,6 +40,7 @@ app.use("/api/user", userRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/bill", billRoute);
 app.use("/api/warrenty", warrentyRoute);
+app.use("/api/vehicle/", vehicleRoute);
 
 //app running port
 app.listen(process.env.PORT || 5000, () => {
