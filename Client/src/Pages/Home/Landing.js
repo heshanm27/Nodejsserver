@@ -115,7 +115,7 @@ const Landing = () => {
                 >
                   <Button
                     variant="outlined"
-                    color="textPrimary"
+                    color="primary"
                     className={classes.button}
                     endIcon={<KeyboardArrowDownIcon />}
                   >

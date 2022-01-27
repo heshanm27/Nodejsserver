@@ -1,15 +1,4 @@
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  Container,
-  Grid,
-  makeStyles,
-  Typography,
-  Box,
-  Paper,
-} from "@material-ui/core";
+import { Container, Grid, makeStyles, Typography } from "@material-ui/core";
 import { purple } from "@material-ui/core/colors";
 import { useState } from "react";
 import FrontCard from "../../component/Card";
@@ -39,7 +28,7 @@ const LearMore = () => {
     <div className={classes.roots} id="review">
       <Container className={classes.container} pb={{ xs: 5, sm: 4 }}>
         <Typography
-          gutterBottom="true"
+          gutterBottom={true}
           variant="h4"
           component="h1"
           color="textPrimary"
