@@ -18,6 +18,8 @@ import Graph from "../Pages/Graph";
 import { useSelector } from "react-redux";
 import ResetPassword from "../Pages/Login/ResetPassword";
 import ProtectedRoute from "./ProtectedRoute";
+import Vehicle from "../Pages/Vehicle/Vehicle";
+
 const theme = createTheme({
   palette: {
     primary: {
@@ -68,7 +70,7 @@ function App() {
 
           <Route
             path="/login"
-            element={curruntUser ? <Navigate to="/dashbord" /> : <Login />}
+            element={curruntUser ? <Navigate to="/" /> : <Login />}
           />
           <Route path="/forgotpassword" element={<ForgotPassword />} />
           <Route path="/resetpassword/:resetlink" element={<ResetPassword />} />
@@ -83,6 +85,7 @@ function App() {
               <Route path="/graph" element={<Graph />} />
             </Route>
           </Route>
+          <Route path="/store" element={<Vehicle />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>

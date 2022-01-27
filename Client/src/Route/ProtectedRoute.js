@@ -5,5 +5,6 @@ import Login from "../Pages/Login/Login";
 
 export default function ProtectedRoute() {
   const { curruntUser } = useSelector((state) => state.user);
-  return curruntUser ? <Outlet /> : <Login />;
+  const isAdmin = curruntUser.isAdmin;
+  return isAdmin ? <Outlet /> : <Login />;
 }
