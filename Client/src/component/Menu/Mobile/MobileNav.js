@@ -29,6 +29,8 @@ import NightsStayIcon from "@material-ui/icons/NightsStay";
 import logo from "../../../img/gm.png";
 import { useSelector, useDispatch } from "react-redux";
 import { changeDarkMode } from "../../../Redux/DarkmodeSlice";
+import DashboardIcon from "@material-ui/icons/Dashboard";
+import DashboardOutlinedIcon from "@material-ui/icons/DashboardOutlined";
 
 function MobileNav() {
   const { darkModeSet } = useSelector((state) => state.darkMode);
@@ -36,8 +38,15 @@ function MobileNav() {
   const theme = useTheme();
   const reslution = useMediaQuery(theme.breakpoints.down("sm"));
   const classes = useStyles();
-  const [open, setOpen] = useState(true);
-
+  const [open, setOpen] = useState(false);
+  const { curruntUser, isAdmin } = useSelector((state) => state.user);
+  const DashBord = {
+    label: "Dashboard",
+    path: "/dashbord",
+    icon: <DashboardOutlinedIcon />,
+    activeIcon: <DashboardIcon />,
+    component: "Dashboard",
+  };
   const navigate = useNavigate();
   const toggelNavigation = () => {
     setOpen(!open);
@@ -106,6 +115,16 @@ function MobileNav() {
               />
             );
           })}
+
+          {isAdmin && (
+            <NavListitem
+              label={DashBord.label}
+              activeIcon={DashBord.activeIcon}
+              icon={DashBord.icon}
+              path={DashBord.path}
+              onClick={closeNavigation}
+            />
+          )}
           <ListItem
             button
             label={darkModeSet ? "DarkMode" : "LightMode"}
