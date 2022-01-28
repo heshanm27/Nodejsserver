@@ -64,9 +64,18 @@ router.put("/bid/:id", async (req, res) => {
 
 router.get("/all", async (req, res) => {
   try {
-    const vehicle = await Vehicle.find();
+    const vehicle = await Vehicle.find(
+      {},
+      {
+        VehicleNo: 1,
+        Price: 1,
+        Model: 1,
+        YearofManufacture: 1,
+        img: 1,
+        Mileage: 1,
+      }
+    );
     res.status(200).json(vehicle);
-    console.log(user);
   } catch (err) {
     console.log(err.message);
   }

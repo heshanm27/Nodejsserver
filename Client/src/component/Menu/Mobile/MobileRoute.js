@@ -18,6 +18,13 @@ const Mobileroutes = [
     activeIcon: <HomeIcon />,
     component: "Home",
   },
+  {
+    label: "Vehiles",
+    path: "/store",
+    icon: <HomeOutlinedIcon />,
+    activeIcon: <HomeIcon />,
+    component: "Home",
+  },
 ];
 
 export default Mobileroutes;

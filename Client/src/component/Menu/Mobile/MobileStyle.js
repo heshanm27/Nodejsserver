@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core";
 export const useStyles = makeStyles((theme) => ({
   rootse: {
     display: "flex",
+    marginBottom: theme.mixins.toolbar,
   },
   page: {
     background: theme.palette.background.paper,

@@ -31,14 +31,13 @@ const userStyle = makeStyles((theme) => ({
 }));
 
 const Home = (props) => {
-  const { darkmode, setDarkMode } = props;
   const classes = userStyle();
   const { scrollYProgress } = useViewportScroll();
   const opacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
   return (
     <>
-      <Header darkmode={darkmode} setDarkMode={setDarkMode} />
+      <Header />
       <Landing />
 
       <Divider variant="middle" light={true} />

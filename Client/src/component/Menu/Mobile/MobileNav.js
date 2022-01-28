@@ -141,12 +141,21 @@ function MobileNav() {
             />
           </ListItem>
           <div className={classes.navigationSpacer}></div>
-          <NavListitem
-            label="Log Out"
-            activeIcon={<MeetingRoomIcon />}
-            icon={<MeetingRoomOutlinedIcon />}
-            path="logout"
-          />
+          {curruntUser ? (
+            <NavListitem
+              label="LogIn"
+              activeIcon={<MeetingRoomIcon />}
+              icon={<MeetingRoomOutlinedIcon />}
+              path="/login"
+            />
+          ) : (
+            <NavListitem
+              label="Log Out"
+              activeIcon={<MeetingRoomIcon />}
+              icon={<MeetingRoomOutlinedIcon />}
+              path="logout"
+            />
+          )}
         </List>
       </Drawer>
     </div>

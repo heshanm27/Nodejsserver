@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Pagination from "@material-ui/lab/Pagination";
 import { Box, Container, Grid, Typography } from "@material-ui/core";
@@ -6,15 +6,20 @@ import Header from "../../component/Header";
 import Footer from "../../Pages/Home/Footer";
 import banner from "../../img/banner.webp";
 import { Skeleton } from "@material-ui/lab";
+import {
+  publicRequest,
+  userRequest,
+} from "../../axiosRequestMethod/defaultAxios";
 const useStyle = makeStyles((theme) => ({
   roots: {
     backgroundColor: theme.palette.background.paper,
     width: "100%",
-    marginTop: theme.mixins.toolbar,
   },
   main: {
+    [theme.breakpoints.down]: {
+      height: "100vh",
+    },
     height: "50vh",
-    margin: "0",
     padding: "0",
   },
   title: {
@@ -33,6 +38,23 @@ const useStyle = makeStyles((theme) => ({
 
 export default function Vehicle() {
   const classes = useStyle();
+
+  const [vehicles, setVehicls] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const getData = async () => {
+    setIsLoading(true);
+    const data = await publicRequest.get("/vehicle//all");
+
+    if (data) {
+      console.log(data.data);
+      setVehicls(data.data);
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
   return (
     <>
       <Header />
@@ -72,29 +94,58 @@ export default function Vehicle() {
         <Box className={classes.cards}>
           <Container component="main" maxWidth="md">
             <Grid container spacing={3}>
-              {[1, 2, 3, 4, 5, 6, 7, 8].map((item) => {
-                return (
-                  <Grid key={item} xs={12} sm={6} md={4}>
-                    <div
-                      style={{
-                        marginBottom: "20px",
-                        padding: "20px",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                    >
-                      <Skeleton variant="rect" width={280} height={118} />
-                      <Skeleton width="60%" />
-                      <Skeleton width="60%" />
-                    </div>
-                  </Grid>
-                );
-              })}
+              {isLoading &&
+                [1, 2, 3, 4, 5, 6, 7, 8].map((item) => {
+                  return (
+                    <Grid item key={item} xs={12} sm={6} md={4}>
+                      <div
+                        style={{
+                          marginBottom: "20px",
+                          padding: "20px",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Skeleton variant="rect" width={280} height={118} />
+                        <Skeleton width="60%" />
+                        <Skeleton width="60%" />
+                      </div>
+                    </Grid>
+                  );
+                })}
+
+              {!isLoading &&
+                vehicles.map((item) => {
+                  return (
+                    <Grid item key={item._id} xs={12} sm={6} md={4}>
+                      <div
+                        style={{
+                          marginBottom: "20px",
+                          padding: "20px",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        <img src={item.img} />
+                      </div>
+                    </Grid>
+                  );
+                })}
             </Grid>
           </Container>
         </Box>
-
-        <Pagination count={2} color="primary" />
+        <Container
+          maxWidth="md"
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            marginBottom: "0",
+            height: "10vh",
+          }}
+        >
+          <Pagination count={2} color="primary" />
+        </Container>
       </div>
       <Footer />
     </>

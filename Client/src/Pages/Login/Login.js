@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
   },
   paper: {
-    marginTop: "50px",
+    marginTop: "20px",
     padding: "20px",
   },
   textField: {
@@ -64,7 +64,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     width: "100%",
     height: "100vh",
-    marginTop: "-50px",
+    marginTop: "-20px",
+    marginTop: theme.mixins.toolbar,
   },
   circluerload: {
     ["&.MuiCircularProgress-colorPrimary"]: {
@@ -145,7 +146,7 @@ export default function Login() {
           component="main"
           maxWidth="sm"
           className={classes.conatiner}
-          style={{ marginTop: "5%" }}
+          style={{ marginTop: "1%" }}
         >
           <Paper className={classes.paper}>
             <CssBaseline />
