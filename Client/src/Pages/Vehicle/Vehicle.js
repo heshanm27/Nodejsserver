@@ -1,11 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Pagination from "@material-ui/lab/Pagination";
-import { Box, Container, Grid, Typography } from "@material-ui/core";
+import {
+  Box,
+  Button,
+  Card,
+  CardActionArea,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Container,
+  Grid,
+  Typography,
+} from "@material-ui/core";
 import Header from "../../component/Header";
 import Footer from "../../Pages/Home/Footer";
 import banner from "../../img/banner.webp";
 import { Skeleton } from "@material-ui/lab";
+import VehicleTable from "../../component/Table/VehicleTable";
 import {
   publicRequest,
   userRequest,
@@ -33,6 +45,17 @@ const useStyle = makeStyles((theme) => ({
   },
   cards: {
     marginTop: "10%",
+  },
+  media: {
+    height: "180px",
+  },
+  Cardcontent: {
+    justifyContent: "center",
+    alignItems: "center",
+    Height: "600px",
+  },
+  cardroot: {
+    maxHeight: "600px",
   },
 }));
 
@@ -92,7 +115,7 @@ export default function Vehicle() {
           </Container>
         </Box>
         <Box className={classes.cards}>
-          <Container component="main" maxWidth="md">
+          <Container component="main" maxWidth="lg">
             <Grid container spacing={3}>
               {isLoading &&
                 [1, 2, 3, 4, 5, 6, 7, 8].map((item) => {
@@ -118,16 +141,33 @@ export default function Vehicle() {
                 vehicles.map((item) => {
                   return (
                     <Grid item key={item._id} xs={12} sm={6} md={4}>
-                      <div
-                        style={{
-                          marginBottom: "20px",
-                          padding: "20px",
-                          justifyContent: "center",
-                          alignItems: "center",
-                        }}
-                      >
-                        <img src={item.img} />
-                      </div>
+                      <Card className={classes.cardroot}>
+                        <CardActionArea>
+                          <CardMedia
+                            className={classes.media}
+                            image={item.img}
+                            title={item.Model}
+                          />
+                          <CardContent className={classes.Cardcontent}>
+                            <Typography
+                              gutterBottom
+                              variant="h5"
+                              component="h2"
+                            >
+                              {item.Brand} {item.Model}
+                            </Typography>
+                            <VehicleTable items={item} />
+                          </CardContent>
+                        </CardActionArea>
+                        <CardActions>
+                          <Button size="small" color="primary">
+                            Share
+                          </Button>
+                          <Button size="small" color="primary">
+                            Learn More
+                          </Button>
+                        </CardActions>
+                      </Card>
                     </Grid>
                   );
                 })}

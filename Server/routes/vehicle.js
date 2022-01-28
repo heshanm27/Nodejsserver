@@ -73,6 +73,7 @@ router.get("/all", async (req, res) => {
         YearofManufacture: 1,
         img: 1,
         Mileage: 1,
+        Brand: 1,
       }
     );
     res.status(200).json(vehicle);
