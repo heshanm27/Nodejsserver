@@ -62,15 +62,10 @@ router.put("/bid/:id", async (req, res) => {
   }
 });
 
-router.get("/bid/:id", async (req, res) => {
-  const vehicleid = objId(req.params.id);
-  const id = objId(req.body.uid);
+router.get("/all", async (req, res) => {
   try {
-    const user = await Vehicle.findOne({ _id: req.params.id }).populate(
-      "Bid.uid",
-      "email"
-    );
-    res.status(200).json(user);
+    const vehicle = await Vehicle.find();
+    res.status(200).json(vehicle);
     console.log(user);
   } catch (err) {
     console.log(err.message);

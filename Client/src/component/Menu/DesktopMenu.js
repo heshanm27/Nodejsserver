@@ -38,6 +38,10 @@ const useStyles = makeStyles((theme) => ({
   },
   appbar: {
     color: "White",
+    backgroundColor: "#212121",
+  },
+  btn: {
+    marginLeft: theme.spacing(1),
   },
 }));
 
@@ -70,12 +74,7 @@ export default function DesktopMenu() {
 
   return (
     <div className={classes.root}>
-      <AppBar
-        position="static"
-        className={classes.appbar}
-        color="inherit"
-        elevation={0}
-      >
+      <AppBar position="static" className={classes.appbar} elevation={0}>
         <Toolbar className={classes.toolbar}>
           <Link to="/" className={classes.title}>
             {" "}
@@ -95,6 +94,7 @@ export default function DesktopMenu() {
                 variant="contained"
                 endIcon={<ExitToAppIcon />}
                 color="primary"
+                className={classes.btn}
               >
                 Login
               </Button>
@@ -128,7 +128,10 @@ export default function DesktopMenu() {
             <MenuItem onClick={() => handleClose("logout")}>Logout</MenuItem>
           </Menu>
 
-          <IconButton onClick={() => dispatch(changeDarkMode())}>
+          <IconButton
+            onClick={() => dispatch(changeDarkMode())}
+            className={classes.btn}
+          >
             {darkModeSet ? <NightsStayIcon /> : <Brightness7Icon />}
           </IconButton>
         </Toolbar>
