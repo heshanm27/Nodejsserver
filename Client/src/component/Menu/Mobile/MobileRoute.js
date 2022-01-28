@@ -19,7 +19,7 @@ const Mobileroutes = [
     component: "Home",
   },
   {
-    label: "Vehiles",
+    label: "Vehicles",
     path: "/store",
     icon: <HomeOutlinedIcon />,
     activeIcon: <HomeIcon />,

@@ -26,9 +26,8 @@ function NavListitem({ label, icon, activeIcon, path, onClick }) {
           dispatch(logout());
           navigate("/");
         } else {
-          {
-            onClick();
-          }
+          onClick();
+
           navigate(path);
         }
       }}

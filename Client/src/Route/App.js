@@ -76,7 +76,10 @@ function App() {
           <Route path="/resetpassword/:resetlink" element={<ResetPassword />} />
           <Route element={<ProtectedRoute />}>
             <Route element={<DashBordDarwer />}>
-              <Route path="/dashbord" element={<Dashbord />} />
+              <Route
+                path="/dashbord"
+                element={curruntUser ? <Navigate to="/" /> : <Dashbord />}
+              />
               <Route path="/warrenty" element={<Warrenty />} />
               <Route path="/additem" element={<Additem />} />
               <Route path="/additem/warrenty" element={<Warrenty />} />

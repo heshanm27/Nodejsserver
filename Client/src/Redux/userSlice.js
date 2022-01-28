@@ -24,6 +24,7 @@ export const userSlice = createSlice({
     },
     logout: (state) => {
       state.curruntUser = null;
+      state.isAdmin = false;
     },
   },
 });

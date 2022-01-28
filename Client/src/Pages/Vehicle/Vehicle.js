@@ -58,7 +58,10 @@ const useStyle = makeStyles((theme) => ({
     maxHeight: "600px",
     display: "block",
     transitionDuration: "0.3s",
-    height: "45vw",
+
+    [theme.breakpoints.up("sm")]: {
+      height: "45vw",
+    },
   },
 }));
 
