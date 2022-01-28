@@ -25,7 +25,7 @@ export default function VehicleTable(props) {
           )}
           <TableRow>
             <TableCell align="left">Mileage</TableCell>
-            <TableCell align="left">{items.Mileage}</TableCell>
+            <TableCell align="left">{items.Mileage}KM</TableCell>
           </TableRow>
           <TableRow>
             <TableCell align="left">Year of Manufacture</TableCell>

@@ -15,7 +15,7 @@ import {
 } from "@material-ui/core";
 import Header from "../../component/Header";
 import Footer from "../../Pages/Home/Footer";
-import banner from "../../img/banner.webp";
+import banner from "../../img/banner.jpeg";
 import { Skeleton } from "@material-ui/lab";
 import VehicleTable from "../../component/Table/VehicleTable";
 import {
@@ -41,7 +41,7 @@ const useStyle = makeStyles((theme) => ({
     marginTop: "50px",
   },
   titleBOx: {
-    marginTop: "20%",
+    marginTop: "15%",
   },
   cards: {
     marginTop: "10%",
@@ -56,6 +56,9 @@ const useStyle = makeStyles((theme) => ({
   },
   cardroot: {
     maxHeight: "600px",
+    display: "block",
+    transitionDuration: "0.3s",
+    height: "45vw",
   },
 }));
 
@@ -160,7 +163,11 @@ export default function Vehicle() {
                           </CardContent>
                         </CardActionArea>
                         <CardActions>
-                          <Button size="small" color="primary">
+                          <Button
+                            size="small"
+                            color="primary"
+                            variant="outlined"
+                          >
                             Share
                           </Button>
                           <Button size="small" color="primary">
