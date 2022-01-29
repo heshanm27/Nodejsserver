@@ -79,6 +79,7 @@ router.get("/all", async (req, res) => {
     res.status(200).json(vehicle);
   } catch (err) {
     console.log(err.message);
+    return res.status(500).json({ error: "Server Error" });
   }
 });
 

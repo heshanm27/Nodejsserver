@@ -17,6 +17,8 @@ import Header from "../../component/Header";
 import Footer from "../../Pages/Home/Footer";
 import banner from "../../img/banner.jpeg";
 import { Skeleton } from "@material-ui/lab";
+import Notification from "../../component/Notification/Notification";
+import usePagination from "../../component/Pagination/Pagination";
 import VehicleTable from "../../component/Table/VehicleTable";
 import {
   publicRequest,
@@ -67,17 +69,43 @@ const useStyle = makeStyles((theme) => ({
 
 export default function Vehicle() {
   const classes = useStyle();
-
   const [vehicles, setVehicls] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [notify, setNotify] = useState({
+    isOpen: false,
+    message: "",
+    type: "",
+  });
+  //pagination
+  const [count, setCount] = useState(1);
+  const [page, setPage] = useState(0);
+  const PER_PAGE = 10;
+
+  const _DATA = usePagination(vehicles, PER_PAGE);
+
+  const handleChange = (e, p) => {
+    setPage(p);
+    _DATA.jump(p);
+  };
+
   const getData = async () => {
     setIsLoading(true);
-    const data = await publicRequest.get("/vehicle//all");
+    try {
+      const data = await publicRequest.get("vehicle/all");
 
-    if (data) {
-      console.log(data.data);
-      setVehicls(data.data);
-      setIsLoading(false);
+      if (data) {
+        console.log(data.data);
+        setVehicls(data.data);
+        setIsLoading(false);
+        setCount(Math.ceil(data.data.length / PER_PAGE));
+      }
+    } catch (err) {
+      console.log(err.response);
+      setNotify({
+        isOpen: true,
+        message: err.response.data.error,
+        type: "error",
+      });
     }
   };
 
@@ -144,7 +172,7 @@ export default function Vehicle() {
                 })}
 
               {!isLoading &&
-                vehicles.map((item) => {
+                _DATA.currentData().map((item) => {
                   return (
                     <Grid item key={item._id} xs={12} sm={6} md={4}>
                       <Card className={classes.cardroot}>
@@ -194,7 +222,13 @@ export default function Vehicle() {
             height: "10vh",
           }}
         >
-          <Pagination count={2} color="primary" />
+          <Pagination
+            count={count}
+            color="primary"
+            page={page}
+            onChange={handleChange}
+          />
+          <Notification notify={notify} setNotify={setNotify} />
         </Container>
       </div>
       <Footer />
