@@ -11,12 +11,16 @@ import {
   CardMedia,
   Container,
   Grid,
+  InputAdornment,
+  TextField,
+  Toolbar,
   Typography,
 } from "@material-ui/core";
 import Header from "../../component/Header";
 import Footer from "../../Pages/Home/Footer";
 import banner from "../../img/banner.jpeg";
 import { Skeleton } from "@material-ui/lab";
+import SearchIcon from "@material-ui/icons/Search";
 import Notification from "../../component/Notification/Notification";
 import usePagination from "../../component/Pagination/Pagination";
 import VehicleTable from "../../component/Table/VehicleTable";
@@ -30,8 +34,9 @@ const useStyle = makeStyles((theme) => ({
     width: "100%",
   },
   main: {
-    [theme.breakpoints.down]: {
-      height: "100vh",
+    [theme.breakpoints.down("sm")]: {
+      marginTop: theme.spacing(7),
+      height: "auto",
     },
     height: "50vh",
     padding: "0",
@@ -65,6 +70,13 @@ const useStyle = makeStyles((theme) => ({
       height: "45vw",
     },
   },
+  search: {
+    width: "50%",
+
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+    },
+  },
 }));
 
 export default function Vehicle() {
@@ -76,15 +88,32 @@ export default function Vehicle() {
     message: "",
     type: "",
   });
+
+  const [searchFilter, setSearchFilter] = useState({
+    fn: (items) => {
+      return items;
+    },
+  });
   //pagination
-  const [count, setCount] = useState(1);
+
   const [page, setPage] = useState(0);
   const PER_PAGE = 10;
 
-  const _DATA = usePagination(vehicles, PER_PAGE);
+  const handleSearch = (e) => {
+    let target = e.target.value.toLowerCase();
 
+    setSearchFilter({
+      fn: (items) => {
+        if (target == "") return items;
+        else return items.filter((x) => x.Model.toLowerCase().includes(target));
+      },
+    });
+  };
+
+  const _DATA = usePagination(searchFilter.fn(vehicles), PER_PAGE);
   const handleChange = (e, p) => {
     setPage(p);
+
     _DATA.jump(p);
   };
 
@@ -97,7 +126,6 @@ export default function Vehicle() {
         console.log(data.data);
         setVehicls(data.data);
         setIsLoading(false);
-        setCount(Math.ceil(data.data.length / PER_PAGE));
       }
     } catch (err) {
       console.log(err.response);
@@ -151,6 +179,25 @@ export default function Vehicle() {
         <Box className={classes.cards}>
           <Container component="main" maxWidth="lg">
             <Grid container spacing={3}>
+              <Grid item xs={12} lg={12}>
+                <Toolbar>
+                  <TextField
+                    size="small"
+                    className={classes.search}
+                    color="secondary"
+                    label="Search field"
+                    variant="outlined"
+                    onChange={handleSearch}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <SearchIcon />
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                </Toolbar>
+              </Grid>
               {isLoading &&
                 [1, 2, 3, 4, 5, 6, 7, 8].map((item) => {
                   return (
@@ -223,7 +270,7 @@ export default function Vehicle() {
           }}
         >
           <Pagination
-            count={count}
+            count={_DATA.maxPage}
             color="primary"
             page={page}
             onChange={handleChange}

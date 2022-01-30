@@ -22,7 +22,7 @@ function usePagination(data, itemsPerPage) {
     setCurrentPage((currentPage) => Math.min(pageNumber, maxPage));
   }
 
-  return { jump, currentData };
+  return { jump, currentData, maxPage };
 }
 
 export default usePagination;
