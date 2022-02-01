@@ -18,7 +18,6 @@ import FooterPage from "./Footer";
 import Brand from "./Brand";
 import ContactUs from "./Contactus";
 import Header from "../../component/Header";
-import wave from "../../img/wave.svg";
 import { motion, useViewportScroll, useTransform } from "framer-motion";
 
 const userStyle = makeStyles((theme) => ({
@@ -39,21 +38,13 @@ const Home = (props) => {
     <>
       <Header />
       <Landing />
-
-      <Divider variant="middle" light={true} />
       <motion.div
-        initial={{ x: "-100vw", opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
+        initial={{ x: "-100vw" }}
+        animate={{ x: 0 }}
         transition={{ type: "spring", duration: 1, bounce: 0.4, delay: 1 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        style={{
-          opacity,
-        }}
       >
         <LearMore />
       </motion.div>
-      <Divider variant="middle" light={true} />
 
       <Brand />
 

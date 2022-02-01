@@ -21,7 +21,7 @@ import bgsvg from "../../img/bg.svg";
 const userStyle = makeStyles((theme) => ({
   mainroot: {
     minHeight: "100vh",
-    background: theme.palette.background.paper,
+    backgroundColor: "#212121",
     justifyContent: "center",
     alignContent: "center",
     display: "flex",
