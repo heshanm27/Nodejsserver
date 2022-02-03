@@ -1,6 +1,7 @@
 import {
   Avatar,
   Container,
+  Divider,
   Grid,
   makeStyles,
   Paper,
@@ -10,6 +11,8 @@ import { purple } from "@material-ui/core/colors";
 import { useState } from "react";
 import FrontCard from "../../component/Card";
 import background from "../../img/wave.svg";
+import quoteLeft from "../../img/Icon/quote-left-solid.svg";
+import quoteRight from "../../img/Icon/quote-right-solid.svg";
 const userStyle = makeStyles((theme) => ({
   roots: {
     minHeight: "60vh",
@@ -34,12 +37,27 @@ const userStyle = makeStyles((theme) => ({
     marginLeft: "45%",
     marginBottom: "20px",
   },
-  quote: {
-    marginTop: "50px",
-    lineHeight: "0.5",
+  quotLeft: {
+    width: "10%",
+    marginBottom: "10px",
   },
-  quotebottom: {
-    lineHeight: "0.5",
+  quotRight: {
+    width: "10%",
+    marginTop: "10px",
+    float: "right",
+  },
+  title: {
+    height: "0.3rem",
+    width: " 5rem",
+    borderRadius: " 0.1rem",
+    background: "#76ff03",
+    marginTop: "15px",
+  },
+  titleCenter: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column",
   },
 }));
 
@@ -58,34 +76,34 @@ const LearMore = () => {
           className={classes.typo}
         >
           Customer Review
+          <div className={classes.titleCenter}>
+            <div className={classes.title}>
+              <span></span>
+            </div>
+          </div>
         </Typography>
+
         <Grid container spacing={3}>
           <Grid item xs={12} md={4}>
             <Paper elevation={3} className={classes.card}>
               <Avatar alt="Remy Sharp" className={classes.avatar}>
                 H
               </Avatar>
-              <Typography
-                variant="h2"
-                align="left"
-                className={classes.quotetop}
-              >
-                "
-              </Typography>
+
               <Typography variant="body1" align="justify">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                ike Aldus PageMaker including versions of Lorem Ipsum.
+                <img src={quoteLeft} className={classes.quotLeft} /> Lorem Ipsum
+                is simply dummy text of the printing and typesetting industry.
+                Lorem Ipsum has been the industry's standard dummy text ever
+                since the 1500s, when an unknown printer took a galley ike Aldus
+                PageMaker including versions of Lorem Ipsum.{" "}
+                <img src={quoteRight} className={classes.quotRight} />
               </Typography>
+
               <Typography
-                variant="h2"
+                variant="body2"
                 align="right"
-                className={classes.quotebottom}
+                style={{ marginTop: "40px" }}
               >
-                "
-              </Typography>
-              <Typography variant="h7" align="left">
                 Heshan Madhuranga
               </Typography>
             </Paper>
@@ -96,27 +114,21 @@ const LearMore = () => {
               <Avatar alt="Remy Sharp" className={classes.avatar}>
                 H
               </Avatar>
-              <Typography
-                variant="h2"
-                align="left"
-                className={classes.quotetop}
-              >
-                "
-              </Typography>
+
               <Typography variant="body1" align="justify">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                ike Aldus PageMaker including versions of Lorem Ipsum.
+                <img src={quoteLeft} className={classes.quotLeft} /> Lorem Ipsum
+                is simply dummy text of the printing and typesetting industry.
+                Lorem Ipsum has been the industry's standard dummy text ever
+                since the 1500s, when an unknown printer took a galley ike Aldus
+                PageMaker including versions of Lorem Ipsum.{" "}
+                <img src={quoteRight} className={classes.quotRight} />
               </Typography>
+
               <Typography
-                variant="h2"
+                variant="body2"
                 align="right"
-                className={classes.quotebottom}
+                style={{ marginTop: "40px" }}
               >
-                "
-              </Typography>
-              <Typography variant="h7" align="left">
                 Heshan Madhuranga
               </Typography>
             </Paper>
@@ -127,27 +139,21 @@ const LearMore = () => {
               <Avatar alt="Remy Sharp" className={classes.avatar}>
                 H
               </Avatar>
-              <Typography
-                variant="h2"
-                align="left"
-                className={classes.quotetop}
-              >
-                "
-              </Typography>
+
               <Typography variant="body1" align="justify">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                ike Aldus PageMaker including versions of Lorem Ipsum.
+                <img src={quoteLeft} className={classes.quotLeft} /> Lorem Ipsum
+                is simply dummy text of the printing and typesetting industry.
+                Lorem Ipsum has been the industry's standard dummy text ever
+                since the 1500s, when an unknown printer took a galley ike Aldus
+                PageMaker including versions of Lorem Ipsum.{" "}
+                <img src={quoteRight} className={classes.quotRight} />
               </Typography>
+
               <Typography
-                variant="h2"
+                variant="body2"
                 align="right"
-                className={classes.quotebottom}
+                style={{ marginTop: "40px" }}
               >
-                "
-              </Typography>
-              <Typography variant="h7" align="left">
                 Heshan Madhuranga
               </Typography>
             </Paper>
