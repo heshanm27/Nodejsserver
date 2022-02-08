@@ -126,14 +126,24 @@ export default function Vehicle() {
         console.log(data.data);
         setVehicls(data.data);
         setIsLoading(false);
+      } else {
+        setVehicls({});
       }
     } catch (err) {
-      console.log(err.response);
-      setNotify({
-        isOpen: true,
-        message: err.response.data.error,
-        type: "error",
-      });
+      console.log(err.message);
+      if (err.message === "Network Error") {
+        setNotify({
+          isOpen: true,
+          message: "Server Error",
+          type: "error",
+        });
+      } else {
+        setNotify({
+          isOpen: true,
+          message: err.response.data.error,
+          type: "error",
+        });
+      }
     }
   };
 
