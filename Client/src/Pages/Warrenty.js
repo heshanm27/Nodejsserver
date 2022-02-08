@@ -157,6 +157,15 @@ const Warrenty = () => {
     console.log(index, e.target.value, values);
   }
 
+  function onChangeTextArea(event) {
+    console.log(event);
+    if (event.keyCode === 13) {
+      alert("Enter is pressed!");
+    } else {
+      setNewParts(event.target.value);
+    }
+  }
+
   //getCustomer data from firebase
   function getCustomerData() {
     //getdata in real time
@@ -468,7 +477,7 @@ const Warrenty = () => {
 
   return (
     <div className={classes.roots} id="review">
-      <Container component="main" maxWidth="md">
+      <Container component="main" maxWidth="lg">
         <CssBaseline />
         <div className={classes.paper}>
           <Typography component="h1" variant="h5" color="textPrimary">
@@ -700,7 +709,7 @@ const Warrenty = () => {
                 </Grid>
 
                 <Grid item xs={12} sm={8} className={classes.grid}>
-                  {/* <TextField
+                  <TextField
                     variant="outlined"
                     margin="normal"
                     fullWidth
@@ -710,13 +719,13 @@ const Warrenty = () => {
                     value={newParts}
                     multiline
                     minRows="10"
-                    onChange={(e) => setNewParts(e.target.value)}
-                  /> */}
-                  <TextInput
+                    onChange={(event) => onChangeTextArea(event)}
+                  />
+                  {/* <TextInput
                     inputfileds={inputFileds}
                     onChange={hadnleTextArea}
                     setInputFilds={setInputFilds}
-                  />
+                  /> */}
                 </Grid>
                 <Grid item xs={12} sm={4} className={classes.grid}></Grid>
                 <Grid item xs={12} sm={4} className={classes.grid}>

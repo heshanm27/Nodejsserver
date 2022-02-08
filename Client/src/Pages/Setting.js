@@ -44,6 +44,7 @@ import {
 import Notification from "../component/Notification/Notification";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import { useAuth } from "../Context/AuthContext";
 const userStyle = makeStyles((theme) => ({
   roots: {
     minHeight: "100vh",
@@ -117,17 +118,17 @@ const Setting = () => {
   });
 
   const classes = userStyle();
-  //const { currentUser } = useAuth();
+  const { currentUser } = useAuth();
   const auth = getAuth();
 
   const user = auth.currentUser;
-  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  // const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   const [photoUrl, setPhotoUrl] = useState("");
-  const [userName, setUserName] = useState(currentUser.displayName);
+  const [userName, setUserName] = useState("");
   const [userNameDiable, setuserNameDisable] = useState(true);
   const [expanded, setExpanded] = useState(false);
   const [image, setImage] = useState([]);
-  const [profileImg, setprofileImg] = useState(currentUser.photoURL);
+  const [profileImg, setprofileImg] = useState("");
   const [progress, setProgress] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -348,7 +349,7 @@ const Setting = () => {
                       id="outlined-basic"
                       label="User Name"
                       variant="outlined"
-                      defaultValue={currentUser.displayName}
+                      // defaultValue={currentUser.displayName}
                       value={userName}
                       onChange={(e) => setUserName(e.target.value)}
                       fullWidth
@@ -367,7 +368,7 @@ const Setting = () => {
                       id="outlined-basic"
                       label="Email"
                       variant="outlined"
-                      defaultValue={currentUser.email}
+                      // defaultValue={currentUser.email}
                       fullWidth
                     />
                   </Box>
@@ -397,7 +398,7 @@ const Setting = () => {
                   </AccordionSummary>
                   <AccordionDetails>
                     <form
-                      autocomplete="off"
+                      autoComplete="off"
                       style={{ width: "100%" }}
                       onSubmit={handleUpdatePassword}
                     >

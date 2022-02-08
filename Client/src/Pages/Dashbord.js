@@ -318,7 +318,7 @@ const Dashbord = () => {
 
   return (
     <div className={classes.roots} id="review">
-      <Container component="main" maxWidth="lg" className={classes.main}>
+      <Container component="main" maxWidth="xl" className={classes.main}>
         <CssBaseline />
         <div className={classes.paper}>
           <Typography component="h1" variant="h5" color="textPrimary">
