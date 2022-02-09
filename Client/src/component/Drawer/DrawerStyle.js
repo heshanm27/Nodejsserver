@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/core";
-
+const drawerWidth = 240;
 export const useStyles = makeStyles((theme) => ({
   rootse: {
     display: "flex",
@@ -20,7 +20,7 @@ export const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(6),
   },
   navigationDrawer: {
-    width: "240px",
+    width: drawerWidth,
     border: "none",
     whiteSpace: "nowrap",
     overflowX: "hidden",
@@ -60,9 +60,7 @@ export const useStyles = makeStyles((theme) => ({
     paddingLeft: 0,
   },
   toolbar: {
-    [theme.breakpoints.down("sm")]: {
-      ...theme.mixins.toolbar,
-    },
+    ...theme.mixins.toolbar,
   },
   shiftTextLeft: {
     marginLeft: "0px",
@@ -71,5 +69,14 @@ export const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("sm")]: {
       marginLeft: "240px",
     },
+  },
+  appBar: {
+    width: `calc(100% - ${drawerWidth}px)`,
+  },
+  appBarFull: {
+    width: `calc(100% - 72px)`,
+  },
+  mobileappBar: {
+    width: `100%`,
   },
 }));

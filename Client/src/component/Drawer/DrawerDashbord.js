@@ -53,16 +53,24 @@ function DashBordDarwer() {
   };
   return (
     <div className={classes.rootse}>
-      {reslution && (
-        <AppBar>
-          <Toolbar>
+      {/* {reslution && ( */}
+      <AppBar
+        className={clsx({
+          [classes.appBar]: true,
+          [classes.appBarFull]: !open,
+          [classes.mobileappBar]: reslution,
+        })}
+      >
+        <Toolbar>
+          {reslution && (
             <IconButton onClick={toggelNavigation} color="inherit">
               <MenuIcon />
             </IconButton>
-            <Typography>RosCard.com</Typography>
-          </Toolbar>
-        </AppBar>
-      )}
+          )}
+          <Typography>RosCard.com</Typography>
+        </Toolbar>
+      </AppBar>
+      {/* )} */}
       <CssBaseline />
       <Drawer
         variant={reslution ? "temporary" : "permanent"}
