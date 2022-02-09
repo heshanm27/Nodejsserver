@@ -9,7 +9,7 @@ const cors = require("cors");
 //cors oprions
 const corsOptions = {
   origin: "http://localhost:3000",
-  method: ["GEt", "POST", "PUT", "DELETE"],
+  method: ["GET", "POST", "PUT", "DELETE"],
   credentials: true,
 };
 

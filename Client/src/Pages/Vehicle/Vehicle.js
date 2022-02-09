@@ -28,6 +28,7 @@ import {
   publicRequest,
   userRequest,
 } from "../../axiosRequestMethod/defaultAxios";
+import { motion } from "framer-motion";
 const useStyle = makeStyles((theme) => ({
   roots: {
     backgroundColor: theme.palette.background.paper,
@@ -188,85 +189,89 @@ export default function Vehicle() {
         </Box>
         <Box className={classes.cards}>
           <Container component="main" maxWidth="lg">
-            <Grid container spacing={3}>
-              <Grid item xs={12} lg={12}>
-                <Toolbar>
-                  <TextField
-                    size="small"
-                    className={classes.search}
-                    color="secondary"
-                    label="Search field"
-                    variant="outlined"
-                    onChange={handleSearch}
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <SearchIcon />
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
-                </Toolbar>
-              </Grid>
-              {isLoading &&
-                [1, 2, 3, 4, 5, 6, 7, 8].map((item) => {
-                  return (
-                    <Grid item key={item} xs={12} sm={6} md={4}>
-                      <div
-                        style={{
-                          marginBottom: "20px",
-                          padding: "20px",
-                          justifyContent: "center",
-                          alignItems: "center",
-                        }}
-                      >
-                        <Skeleton variant="rect" width={280} height={118} />
-                        <Skeleton width="60%" />
-                        <Skeleton width="60%" />
-                      </div>
-                    </Grid>
-                  );
-                })}
+            <motion.div layout>
+              <Grid container spacing={3}>
+                <Grid item xs={12} lg={12}>
+                  <Toolbar>
+                    <TextField
+                      size="small"
+                      className={classes.search}
+                      color="secondary"
+                      label="Search field"
+                      variant="outlined"
+                      onChange={handleSearch}
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <SearchIcon />
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                  </Toolbar>
+                </Grid>
+                {isLoading &&
+                  [1, 2, 3, 4, 5, 6, 7, 8].map((item) => {
+                    return (
+                      <Grid item key={item} xs={12} sm={6} md={4}>
+                        <div
+                          style={{
+                            marginBottom: "20px",
+                            padding: "20px",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Skeleton variant="rect" width={280} height={118} />
+                          <Skeleton width="60%" />
+                          <Skeleton width="60%" />
+                        </div>
+                      </Grid>
+                    );
+                  })}
 
-              {!isLoading &&
-                _DATA.currentData().map((item) => {
-                  return (
-                    <Grid item key={item._id} xs={12} sm={6} md={4}>
-                      <Card className={classes.cardroot}>
-                        <CardActionArea>
-                          <CardMedia
-                            className={classes.media}
-                            image={item.img}
-                            title={item.Model}
-                          />
-                          <CardContent className={classes.Cardcontent}>
-                            <Typography
-                              gutterBottom
-                              variant="h5"
-                              component="h2"
-                            >
-                              {item.Brand} {item.Model}
-                            </Typography>
-                            <VehicleTable items={item} />
-                          </CardContent>
-                        </CardActionArea>
-                        <CardActions>
-                          <Button
-                            size="small"
-                            color="primary"
-                            variant="outlined"
-                          >
-                            Share
-                          </Button>
-                          <Button size="small" color="primary">
-                            Learn More
-                          </Button>
-                        </CardActions>
-                      </Card>
-                    </Grid>
-                  );
-                })}
-            </Grid>
+                {!isLoading &&
+                  _DATA.currentData().map((item) => {
+                    return (
+                      <Grid item key={item._id} xs={12} sm={6} md={4}>
+                        <motion.div layout>
+                          <Card className={classes.cardroot}>
+                            <CardActionArea>
+                              <CardMedia
+                                className={classes.media}
+                                image={item.img}
+                                title={item.Model}
+                              />
+                              <CardContent className={classes.Cardcontent}>
+                                <Typography
+                                  gutterBottom
+                                  variant="h5"
+                                  component="h2"
+                                >
+                                  {item.Brand} {item.Model}
+                                </Typography>
+                                <VehicleTable items={item} />
+                              </CardContent>
+                            </CardActionArea>
+                            <CardActions>
+                              <Button
+                                size="small"
+                                color="primary"
+                                variant="outlined"
+                              >
+                                Share
+                              </Button>
+                              <Button size="small" color="primary">
+                                Learn More
+                              </Button>
+                            </CardActions>
+                          </Card>
+                        </motion.div>
+                      </Grid>
+                    );
+                  })}
+              </Grid>
+            </motion.div>
           </Container>
         </Box>
         <Container
