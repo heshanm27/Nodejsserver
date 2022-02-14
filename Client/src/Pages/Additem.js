@@ -268,9 +268,11 @@ const Additem = () => {
       <Container component="main" maxWidth="lg" className={classes.main}>
         <CssBaseline />
         <div className={classes.paper}>
-          <Typography component="h1" variant="h5" color="textPrimary">
-            Warrenty Details
-          </Typography>
+          <Paper className={classes.paper}>
+            <Typography component="h1" variant="h5" color="textPrimary">
+              Warrenty Details
+            </Typography>
+          </Paper>
           <Paper className={classes.paper}>
             <Toolbar>
               <TextField

@@ -33,6 +33,7 @@ import {
 import placeholderImage from "../img/placeholder.jpg";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import TextInput from "../component/MultipleInput/TextInput";
+import AutoCompleteList from "../component/Inputs/AutoCompleteList";
 const userStyle = makeStyles((theme) => ({
   roots: {
     minHeight: "60vh",
@@ -124,6 +125,9 @@ const Warrenty = () => {
   const [errors, setErrors] = useState([]);
   //sendparamters
   const [params, setParams] = useState({});
+
+  //TODO: testing
+  const [cusValue, setCusValue] = useState("");
 
   function getUnique(arr, comp) {
     // store the comparison  values in array
@@ -475,6 +479,15 @@ const Warrenty = () => {
     }
   };
 
+  const autocomplete = (e, newValue) => {
+    // Create a new value from the user input
+    setCusValue(newValue);
+    console.log(newValue);
+  };
+  const getOptionLabel = (option) => {
+    return option.CustomerName;
+  };
+
   return (
     <div className={classes.roots} id="review">
       <Container component="main" maxWidth="lg">
@@ -493,6 +506,14 @@ const Warrenty = () => {
             >
               <Grid container spacing={4}>
                 <Grid item xs={12} sm={6} className={classes.grid}>
+                  <AutoCompleteList
+                    label="customer"
+                    options={customer}
+                    value={cusValue}
+                    onChange={autocomplete}
+                    optionLabel={getOptionLabel}
+                  />
+
                   {/*Customer Name*/}
                   <Autocomplete
                     inputValue={user}
@@ -501,8 +522,12 @@ const Warrenty = () => {
                     }}
                     id="controllable"
                     freeSolo
+                    loading={true}
+                    limitTags={2}
                     options={customer}
-                    getOptionLabel={(option) => option.CustomerName}
+                    getOptionLabel={(option) => {
+                      return option.CustomerName;
+                    }}
                     renderInput={(params) => (
                       <TextField
                         {...params}
