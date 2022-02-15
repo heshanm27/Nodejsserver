@@ -12,7 +12,7 @@ import {
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import { Link as Scroll } from "react-scroll";
 import bg from "../../img/bg.jpg";
-import Staatliches from "../../Assests/Fronts/Staatliches-Regular.ttf";
+
 const userStyle = makeStyles((theme) => ({
   mainroot: {
     minHeight: "100vh",
