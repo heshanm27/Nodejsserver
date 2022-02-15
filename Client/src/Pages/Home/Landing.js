@@ -17,15 +17,19 @@ import {
 } from "@material-ui/core";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import { Link as Scroll } from "react-scroll";
-import bgsvg from "../../img/bg.svg";
+import bg from "../../img/bg.jpg";
+
 const userStyle = makeStyles((theme) => ({
   mainroot: {
     minHeight: "100vh",
-    backgroundColor: "#212121",
     justifyContent: "center",
     alignContent: "center",
     display: "flex",
     direction: "column",
+    background: `rgba(0,0,0,0.3) url(${bg})`,
+    backgroundRepeat: " no-repeat",
+    backgroundSize: "cover",
+    backgroundBlendMode: "darken",
   },
   container: {
     display: "flex",
@@ -125,9 +129,7 @@ const Landing = () => {
               </Box>
             </Container>
           </Grid>
-          <Grid xs={12} sm={12} md={6} item>
-            <img src={bgsvg} />
-          </Grid>
+          <Grid xs={12} sm={12} md={6} item></Grid>
         </Grid>
       </Container>
     </div>

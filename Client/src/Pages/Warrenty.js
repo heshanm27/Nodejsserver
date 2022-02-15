@@ -80,6 +80,17 @@ const userStyle = makeStyles((theme) => ({
       padding: "50px 10px",
     },
   },
+  textarea: {
+    background: `url(http://i.imgur.com/2cOaJ.png)`,
+    backgroundAttachment: "local",
+    backgroundRepeat: "no-repeat",
+    paddingTop: "0px",
+    paddingLeft: "25px",
+    borderColor: "#ccc",
+    fontSize: "15px",
+    lineHeight: "25px",
+    resize: "none",
+  },
 }));
 
 const Warrenty = () => {
@@ -741,6 +752,7 @@ const Warrenty = () => {
                     id="NewPartsDetails"
                     label="New Parts Details"
                     name="New Parts Details"
+                    className={classes.textarea}
                     value={newParts}
                     multiline
                     minRows="10"
