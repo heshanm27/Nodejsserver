@@ -1,16 +1,10 @@
 import { useState } from "react";
 import {
-  Card,
-  CardContent,
   Container,
-  CssBaseline,
   makeStyles,
   Typography,
-  CardActions,
   Button,
   Box,
-  Paper,
-  Divider,
   Grid,
   useTheme,
   useMediaQuery,
@@ -18,7 +12,7 @@ import {
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import { Link as Scroll } from "react-scroll";
 import bg from "../../img/bg.jpg";
-
+import Staatliches from "../../Assests/Fronts/Staatliches-Regular.ttf";
 const userStyle = makeStyles((theme) => ({
   mainroot: {
     minHeight: "100vh",
@@ -26,7 +20,7 @@ const userStyle = makeStyles((theme) => ({
     alignContent: "center",
     display: "flex",
     direction: "column",
-    background: `rgba(0,0,0,0.3) url(${bg})`,
+    background: `rgba(0,0,0,0.7) url(${bg})`,
     backgroundRepeat: " no-repeat",
     backgroundSize: "cover",
     backgroundBlendMode: "darken",
@@ -80,20 +74,35 @@ const Landing = () => {
       <Container maxWidth="xl" className={classes.container}>
         <Grid
           container
-          direction={reslution ? "column-reverse" : "row"}
+          direction="column"
           alignItems="center"
           justifyContent="space-evenly"
         >
-          <Grid item xs={12} sm={12} md={6}>
+          <Grid item xs={12}>
             <Container className={classes.box} maxWidth="sm">
               <Box>
                 <Typography
                   component="h1"
                   variant={reslution ? "h4" : "h2"}
                   color="textPrimary"
-                  style={{ margin: "10px 0" }}
+                  style={{
+                    margin: "5px 0",
+                    fontFamily: "Staatliches",
+                    fontSize: "88px",
+                  }}
                 >
-                  Professional Fixer
+                  WE ARE QUALIFIED &
+                </Typography>
+                <Typography
+                  component="h1"
+                  variant={reslution ? "h4" : "h2"}
+                  style={{
+                    margin: "5px 0",
+                    fontFamily: "Staatliches",
+                    color: "#1FF072",
+                  }}
+                >
+                  PROFESSIONAL
                 </Typography>
                 <Box>
                   <Typography
@@ -101,13 +110,16 @@ const Landing = () => {
                     component="p"
                     align="center"
                     color="textPrimary"
+                    style={{ fontSize: "1.2rem" }}
                     className={classes.typop}
                   >
                     Lorem Ipsum is simply dummy text of the printing and
                     typesetting industry. Lorem Ipsum has been the industry's
                     standard dummy text ever since the 1500s, when an unknown
                     printer took a galley ike Aldus PageMaker including versions
-                    of Lorem Ipsum.
+                    of Lorem Ipsum.industry's standard dummy text ever since the
+                    1500s, when an unknown printer took a galley ike Aldus
+                    PageMaker including versions of Lorem
                   </Typography>
                 </Box>
                 <Scroll
@@ -129,7 +141,6 @@ const Landing = () => {
               </Box>
             </Container>
           </Grid>
-          <Grid xs={12} sm={12} md={6} item></Grid>
         </Grid>
       </Container>
     </div>
