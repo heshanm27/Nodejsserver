@@ -84,11 +84,11 @@ const Landing = () => {
                 <Typography
                   component="h1"
                   variant={reslution ? "h4" : "h2"}
-                  color="textPrimary"
                   style={{
                     margin: "5px 0",
                     fontFamily: "Staatliches",
                     fontSize: "88px",
+                    color: "white",
                   }}
                 >
                   WE ARE QUALIFIED &
@@ -109,8 +109,11 @@ const Landing = () => {
                     variant="body2"
                     component="p"
                     align="center"
-                    color="textPrimary"
-                    style={{ fontSize: "1.2rem" }}
+                    style={{
+                      fontSize: "1.2rem",
+                      color: "white",
+                      wordSpacing: "5px",
+                    }}
                     className={classes.typop}
                   >
                     Lorem Ipsum is simply dummy text of the printing and

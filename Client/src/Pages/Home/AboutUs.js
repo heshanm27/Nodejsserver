@@ -15,7 +15,7 @@ import screwDriver from "../../img/Icon/screwdriver-wrench-solid.svg";
 import wrench from "../../img/Icon/wrench-solid.svg";
 const userStyle = makeStyles((theme) => ({
   roots: {
-    minHeight: "90vh",
+    minHeight: "50vh",
     justifyContent: "left",
   },
   boxCard: {
@@ -101,6 +101,7 @@ const AboutUs = () => {
                   align="center"
                   style={{
                     marginTop: "30px",
+                    color: "#212121",
                   }}
                 >
                   {" "}
@@ -145,6 +146,7 @@ const AboutUs = () => {
                   style={{
                     marginTop: "30px",
                     backgroundColor: "white",
+                    color: "#212121",
                   }}
                 >
                   {" "}
