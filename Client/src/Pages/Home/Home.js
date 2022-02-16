@@ -19,7 +19,7 @@ import Brand from "./Brand";
 import ContactUs from "./Contactus";
 import Header from "../../component/Header";
 import AboutUs from "./AboutUs";
-
+import OurService from "./OurService";
 import { motion, useViewportScroll, useTransform } from "framer-motion";
 
 const userStyle = makeStyles((theme) => ({
@@ -41,6 +41,7 @@ const Home = (props) => {
       <Header />
       <Landing />
       <AboutUs />
+      <OurService />
       <motion.div
         initial={{ x: "-100vw" }}
         animate={{ x: 0 }}

@@ -15,8 +15,9 @@ import screwDriver from "../../img/Icon/screwdriver-wrench-solid.svg";
 import wrench from "../../img/Icon/wrench-solid.svg";
 const userStyle = makeStyles((theme) => ({
   roots: {
-    minHeight: "50vh",
+    minHeight: "100vh",
     justifyContent: "left",
+    marginBottom: "150px",
   },
   boxCard: {
     width: "350px",
@@ -46,7 +47,10 @@ const AboutUs = () => {
           className={classes.container}
           pb={{ xs: 5, sm: 4 }}
           maxWidth="sm"
-          style={{ marginTop: "150px", marginLeft: "10px" }}
+          style={{
+            marginTop: "150px",
+            marginLeft: "10px",
+          }}
         >
           <Typography
             component="h1"
@@ -88,7 +92,7 @@ const AboutUs = () => {
           }}
         >
           <Grid container spacing={3}>
-            <Grid item xs={12} sm={4}>
+            <Grid item xs={12} sm={6} md={4}>
               <Paper
                 className={classes.boxCard}
                 elevation={4}
@@ -110,7 +114,7 @@ const AboutUs = () => {
               </Paper>
             </Grid>
 
-            <Grid item xs={12} sm={4}>
+            <Grid item xs={12} sm={6} md={4}>
               <Paper
                 className={classes.boxCard}
                 elevation={4}
@@ -132,7 +136,7 @@ const AboutUs = () => {
               </Paper>
             </Grid>
 
-            <Grid item xs={12} sm={4}>
+            <Grid item xs={12} sm={6} md={4}>
               <Paper
                 className={classes.boxCard}
                 elevation={4}
