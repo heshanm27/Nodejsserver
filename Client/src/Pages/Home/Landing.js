@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   Container,
   makeStyles,
@@ -12,7 +12,7 @@ import {
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import { Link as Scroll } from "react-scroll";
 import bg from "../../img/bg.jpg";
-
+import { TweenMax, TimelineLite, Power3 } from "gsap/all";
 const userStyle = makeStyles((theme) => ({
   mainroot: {
     minHeight: "100vh",
@@ -41,9 +41,6 @@ const userStyle = makeStyles((theme) => ({
     padding: "40px",
     margin: "40px",
   },
-  button: {
-    marginTop: "40px",
-  },
   typo: {
     fontSize: "1.4rem",
     Width: "50%",
@@ -65,10 +62,33 @@ const userStyle = makeStyles((theme) => ({
 
 const Landing = () => {
   const classes = userStyle();
+  const refItems = useRef(null);
   const theme = useTheme();
   const reslution = useMediaQuery(theme.breakpoints.down("sm"));
-  const tr = true;
-  const direction = "";
+  const tl = new TimelineLite();
+
+  // Animation for fading in
+  const fadeIn = (element) => {
+    tl.from(element, 2, {
+      opacity: 0,
+      y: 100,
+      ease: "power4.out",
+      stagger: {
+        amount: 1.5,
+      },
+    });
+  };
+
+  useEffect(() => {
+    console.log(refItems);
+    // tl.from(refItems.current, 1.0, {
+    //   opacity: 0,
+    //   ease: Power3.easeIn,
+    //   stagger: { amount: 0.3 },
+    // });
+    fadeIn(".fadeIn");
+  }, []);
+
   return (
     <div className={classes.mainroot}>
       <Container maxWidth="xl" className={classes.container}>
@@ -82,6 +102,8 @@ const Landing = () => {
             <Container className={classes.box} maxWidth="sm">
               <Box>
                 <Typography
+                  ref={refItems}
+                  className="fadeIn"
                   component="h1"
                   variant={reslution ? "h4" : "h2"}
                   style={{
@@ -94,6 +116,8 @@ const Landing = () => {
                   WE ARE QUALIFIED &
                 </Typography>
                 <Typography
+                  ref={refItems}
+                  className="fadeIn"
                   component="h1"
                   variant={reslution ? "h4" : "h2"}
                   style={{
@@ -115,6 +139,8 @@ const Landing = () => {
                       wordSpacing: "5px",
                     }}
                     className={classes.typop}
+                    ref={refItems}
+                    className="fadeIn"
                   >
                     Lorem Ipsum is simply dummy text of the printing and
                     typesetting industry. Lorem Ipsum has been the industry's
@@ -135,8 +161,12 @@ const Landing = () => {
                   <Button
                     variant="outlined"
                     color="primary"
-                    className={classes.button}
+                    className="fadeIn"
                     endIcon={<KeyboardArrowDownIcon />}
+                    style={{
+                      marginTop: "40px",
+                    }}
+                    ref={refItems}
                   >
                     Learn More
                   </Button>

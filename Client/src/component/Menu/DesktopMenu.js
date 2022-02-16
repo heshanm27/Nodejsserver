@@ -22,7 +22,7 @@ import NightsStayIcon from "@material-ui/icons/NightsStay";
 import { useSelector, useDispatch } from "react-redux";
 import { changeDarkMode } from "../../Redux/DarkmodeSlice";
 import { logout } from "../../Redux/userSlice";
-
+import { TweenMax, TimelineLite, Power3 } from "gsap/all";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 0,
@@ -82,11 +82,7 @@ export default function DesktopMenu() {
               Rosacrd.com
             </Typography>
           </Link>
-          <Navlink
-            to="/store"
-            name="Vehicles"
-            color={darkModeSet ? "  Primary" : "rgba(0, 0, 0, 0.87)"}
-          />
+          <Navlink to="/store" name="Vehicles" color="primary" />
           {!curruntUser && (
             <Link to="/login">
               {" "}
