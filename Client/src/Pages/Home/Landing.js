@@ -100,7 +100,7 @@ const Landing = () => {
         >
           <Grid item xs={12}>
             <Container className={classes.box} maxWidth="sm">
-              <Box>
+              <Box style={{ marginBottom: "150px", marginTop: "150px" }}>
                 <Typography
                   ref={refItems}
                   className="fadeIn"

@@ -34,6 +34,13 @@ const userStyle = makeStyles((theme) => ({
   container: {
     display: "flex",
     alignItems: "center",
+    flexWrap: "wrap",
+    marginTop: "150px",
+    marginLeft: "100px",
+    marginBottom: "150px",
+    [theme.breakpoints.down("sm")]: {
+      marginLeft: "0px",
+    },
   },
   typo: {
     color: "white",
@@ -88,6 +95,29 @@ const Services = [
   },
 ];
 
+const achivements = [
+  {
+    Title: "Our Technicain",
+    Count: 120,
+    url: wrench,
+  },
+  {
+    Title: "Our Technicain",
+    Count: 120,
+    url: wrench,
+  },
+  {
+    Title: "Our Technicain",
+    Count: 120,
+    url: wrench,
+  },
+  {
+    Title: "Our Technicain",
+    Count: 120,
+    url: wrench,
+  },
+];
+
 const OurService = () => {
   const classes = userStyle();
   const refItems = useRef(null);
@@ -119,15 +149,7 @@ const OurService = () => {
 
   return (
     <div className={classes.mainroot}>
-      <Container
-        maxWidth="xl"
-        className={classes.container}
-        style={{
-          marginTop: "150px",
-          marginLeft: "10px",
-          marginBottom: "150px",
-        }}
-      >
+      <Container maxWidth="xl" className={classes.container} style={{}}>
         <Grid container spacing={3}>
           {Services.map((item) => {
             return (
@@ -142,7 +164,7 @@ const OurService = () => {
                   <Box style={{ marginLeft: "20px" }}>
                     <Typography
                       component="h2"
-                      variant={reslution ? "h4" : "h3"}
+                      variant={reslution ? "h5" : "h3"}
                       className={classes.typo}
                       align="justify"
                       style={{
@@ -167,6 +189,36 @@ const OurService = () => {
             );
           })}
         </Grid>
+        <Container maxWidth="lg">
+          <Paper
+            style={{
+              width: "100%",
+              height: "200px",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <Grid container spacing={3}>
+              {achivements.map((item) => {
+                return (
+                  <Grid item key={item.title} xs={12} sm={3}>
+                    <Box
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Avatar src={item.url} />
+                      <Typography>{item.Count}</Typography>
+                      <Typography>{item.Title}</Typography>
+                    </Box>
+                  </Grid>
+                );
+              })}
+            </Grid>
+          </Paper>
+        </Container>
       </Container>
     </div>
   );

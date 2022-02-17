@@ -15,7 +15,7 @@ import screwDriver from "../../img/Icon/screwdriver-wrench-solid.svg";
 import wrench from "../../img/Icon/wrench-solid.svg";
 const userStyle = makeStyles((theme) => ({
   roots: {
-    minHeight: "100vh",
+    minHeight: "50vh",
     justifyContent: "left",
     marginBottom: "150px",
   },
