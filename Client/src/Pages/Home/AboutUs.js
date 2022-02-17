@@ -1,18 +1,16 @@
 import {
-  Avatar,
-  Box,
   Container,
-  Divider,
   Grid,
   makeStyles,
   Paper,
   Typography,
 } from "@material-ui/core";
-import { purple } from "@material-ui/core/colors";
-import { useState } from "react";
+import { useRef } from "react";
+import { useIntersection } from "react-use";
 import gear from "../../img/Icon/gear-solid.svg";
 import screwDriver from "../../img/Icon/screwdriver-wrench-solid.svg";
 import wrench from "../../img/Icon/wrench-solid.svg";
+import { TweenMax, TimelineLite, Power3 } from "gsap/all";
 const userStyle = makeStyles((theme) => ({
   roots: {
     minHeight: "50vh",
@@ -37,9 +35,42 @@ const userStyle = makeStyles((theme) => ({
 }));
 
 const AboutUs = () => {
-  const [spacing, setSpacing] = useState(5);
-
   const classes = userStyle();
+
+  const containerRef = useRef(null);
+  const tl = new TimelineLite();
+  const intersection = useIntersection(containerRef, {
+    root: null,
+    rootMargin: "10px",
+    threshold: 0.6,
+  });
+
+  const fadeIn = (element) => {
+    tl.to(element, 1, {
+      opacity: 1,
+      y: -60,
+      ease: "power4.out",
+      stagger: {
+        amount: 0.3,
+      },
+    });
+  };
+
+  const fadeOut = (element) => {
+    tl.to(element, 1, {
+      opacity: 0,
+      y: 60,
+      ease: "power4.out",
+      stagger: {
+        amount: 0.3,
+      },
+    });
+  };
+
+  intersection && intersection.intersectionRatio < 0.6
+    ? fadeOut(".fadeFirst")
+    : fadeIn(".fadeFirst");
+
   return (
     <div className={classes.roots} id="review">
       <Container maxWidth="lg">
@@ -51,12 +82,14 @@ const AboutUs = () => {
             marginTop: "150px",
             marginLeft: "10px",
           }}
+          ref={containerRef}
         >
           <Typography
             component="h1"
             variant="h2"
             align="left"
             style={{ fontFamily: "Staatliches", color: "#1FF072" }}
+            className="fadeFirst"
           >
             WHO WE ARE
           </Typography>
@@ -65,6 +98,7 @@ const AboutUs = () => {
             variant="h3"
             align="left"
             style={{ fontFamily: "Staatliches" }}
+            className="fadeFirst"
           >
             WE HAVE 25 YEARS OF
           </Typography>
@@ -73,10 +107,16 @@ const AboutUs = () => {
             variant="h3"
             align="left"
             style={{ fontFamily: "Staatliches" }}
+            className="fadeFirst"
           >
             EXPERIENCE IN THIS FIELD
           </Typography>{" "}
-          <Typography component="p" variant="body1" align="left">
+          <Typography
+            component="p"
+            variant="body1"
+            align="left"
+            className="fadeFirst"
+          >
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry. Lorem Ipsum has been the industry's standard dummy text
             ever since the 1500s, when an unknown printer took a galley ike
@@ -85,6 +125,7 @@ const AboutUs = () => {
         </Container>
         <Container
           max-width="sm"
+          className="fadeFirst"
           style={{
             marginTop: "50px",
             display: "flex",
@@ -92,7 +133,7 @@ const AboutUs = () => {
           }}
         >
           <Grid container spacing={3}>
-            <Grid item xs={12} sm={6} md={4}>
+            <Grid key="1" item xs={12} sm={6} md={4}>
               <Paper
                 className={classes.boxCard}
                 elevation={4}
@@ -114,7 +155,7 @@ const AboutUs = () => {
               </Paper>
             </Grid>
 
-            <Grid item xs={12} sm={6} md={4}>
+            <Grid key="2" item xs={12} sm={6} md={4}>
               <Paper
                 className={classes.boxCard}
                 elevation={4}
@@ -136,7 +177,7 @@ const AboutUs = () => {
               </Paper>
             </Grid>
 
-            <Grid item xs={12} sm={6} md={4}>
+            <Grid item key="3" xs={12} sm={6} md={4}>
               <Paper
                 className={classes.boxCard}
                 elevation={4}
