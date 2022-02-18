@@ -30,12 +30,16 @@ mongoose
     console.log(err.message);
   });
 
+app.get("/", (req, res) => {
+  res.status(200).send("<h1>Welome to RosaCrd Api</h1>");
+});
 //middleware
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors(corsOptions));
 
 //user api end point
+
 app.use("/api/user", userRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/bill", billRoute);
