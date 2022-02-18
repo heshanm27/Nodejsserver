@@ -4,7 +4,7 @@ const {
   verifyToken,
   verifyTokenAndAuthorized,
 } = require("../middleware/verifyToken");
-const Vehicle = require("../models/Vehicle");
+const Vehicle = require("../models/Vehicle/Vehicle");
 const User = require("../models/User");
 const objId = mongoose.Types.ObjectId;
 
@@ -22,7 +22,15 @@ router.post("/add", async (req, res) => {
       Mileage: req.body.Mileage,
       Brand: req.body.Brand,
       Bid: req.body.Bid,
+      FuelType: req.body.FuelType,
+      Color: req.body.Color,
+      Transmission: req.body.Transmission,
+      EngineCapacity: req.body.EngineCapacity,
+      Edition: req.body.Edition,
+      Features: req.body.Features,
+      imgUrl: req.body.imgUrl,
     });
+    await newVehicle.save();
     res.status(200).send({ message: "Sucessfully new vehicle added" });
   } catch (err) {
     res.status(400).send({ message: err.message });
@@ -56,7 +64,7 @@ router.put("/bid/:id", async (req, res) => {
       { _id: vehicleid },
       { $push: { Bid: { uid: req.body.uid, value: req.body.value } } }
     );
-    console.log(newVehicle);
+    res.status(200).send({ message: "Bid Sucessfully Added" });
   } catch (err) {
     console.log(err.message);
   }
@@ -64,18 +72,7 @@ router.put("/bid/:id", async (req, res) => {
 
 router.get("/all", async (req, res) => {
   try {
-    const vehicle = await Vehicle.find(
-      {},
-      {
-        VehicleNo: 1,
-        Price: 1,
-        Model: 1,
-        YearofManufacture: 1,
-        img: 1,
-        Mileage: 1,
-        Brand: 1,
-      }
-    );
+    const vehicle = await Vehicle.find({}).populate("Bid.uid");
     res.status(200).json(vehicle);
   } catch (err) {
     console.log(err.message);

@@ -98,17 +98,19 @@ const achivements = [
   {
     id: 1,
     Title: "Our Technicain1",
-    Count: 120,
+    Count: 1,
     url: wrench,
+    class: "Counter1",
   },
   {
     id: 2,
     Title: "OurTechnicai",
-    Count: 120,
+    Count: 1,
     url: wrench,
+    class: "Counter2",
   },
-  { id: 3, Title: "OurTech", Count: 120, url: wrench },
-  { id: 4, Title: "OurT", Count: 120, url: wrench },
+  { id: 3, Title: "OurTech", Count: 1, url: wrench, class: "Counter3" },
+  { id: 4, Title: "OurT", Count: 1, url: wrench, class: "Counter4" },
 ];
 
 const OurService = () => {
@@ -117,11 +119,18 @@ const OurService = () => {
   const theme = useTheme();
   const reslution = useMediaQuery(theme.breakpoints.down("sm"));
   const tl = new TimelineLite();
-  const intersection = useIntersection(containerRef, {
+  const intersection2 = useIntersection(containerRef, {
     root: null,
     rootMargin: "10px",
     threshold: 0.6,
   });
+  const contRef = useRef(null);
+  const intersection3 = useIntersection(contRef, {
+    root: null,
+    rootMargin: "0px",
+    threshold: 0.6,
+  });
+  const t2 = new TimelineLite();
   // Animation for fading in
   const fadeIn = (element) => {
     tl.to(element, 1, {
@@ -145,7 +154,57 @@ const OurService = () => {
     });
   };
 
-  intersection && intersection.intersectionRatio < 0.6
+  const counter = () => {
+    t2.to(".Counter1", {
+      snap: { innerText: 1 },
+      stagger: { amount: 0.3 },
+    });
+    t2.to(".Counter2", {
+      snap: { innerText: 10 },
+      stagger: { amount: 0.3 },
+    });
+    t2.to(".Counter3", {
+      snap: { innerText: 10 },
+      stagger: { amount: 0.3 },
+    });
+    t2.to(".Counter4", {
+      snap: { innerText: 10 },
+      stagger: { amount: 0.3 },
+    });
+  };
+
+  const counterDown = () => {
+    t2.to(".Counter1", {
+      innerText: 120,
+      stagger: 0,
+      duration: 1,
+      snap: { innerText: 1 },
+    })
+      .to(".Counter2", {
+        innerText: 500,
+        stagger: 0,
+        duration: 1,
+        snap: { innerText: 1 },
+      })
+      .to(".Counter3", {
+        innerText: 100,
+        stagger: 0,
+        duration: 1,
+        snap: { innerText: 1 },
+      })
+      .to(".Counter4", {
+        innerText: 500,
+        stagger: 0,
+        duration: 1,
+        snap: { innerText: 1 },
+      });
+  };
+
+  intersection3 && intersection3.intersectionRatio < 0.6
+    ? counter()
+    : counterDown();
+
+  intersection2 && intersection2.intersectionRatio < 0.6
     ? fadeOut(".fadeService")
     : fadeIn(".fadeService");
 
@@ -202,7 +261,7 @@ const OurService = () => {
             );
           })}
         </Grid>
-        <Container maxWidth="lg">
+        <Container maxWidth="lg" ref={contRef}>
           <Paper
             style={{
               width: "100%",
@@ -210,6 +269,7 @@ const OurService = () => {
               display: "flex",
               alignItems: "center",
             }}
+            elevation={3}
           >
             <Grid container spacing={3}>
               {achivements.map((item) => {
@@ -223,7 +283,13 @@ const OurService = () => {
                       }}
                     >
                       <Avatar src={item.url} />
-                      <Typography>{item.Count}</Typography>
+                      <Typography
+                        component="h1"
+                        variant="h3"
+                        className={item.class}
+                      >
+                        {item.Count}
+                      </Typography>
                       <Typography>{item.Title}</Typography>
                     </Box>
                   </Grid>

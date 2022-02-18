@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const Bill = require("./Bill");
+const Bill = require("../Bill");
 
 const WarrentySchema = new mongoose.Schema(
   {

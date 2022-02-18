@@ -3,7 +3,7 @@ const {
   verifyToken,
   verifyTokenAndAuthorized,
 } = require("../middleware/verifyToken");
-const Warrenty = require("../models/Warrenty");
+const Warrenty = require("../models/Warranty/Warrenty");
 const Bill = require("../models/Bill");
 
 router.get("/getbill", (req, res) => {
