@@ -20,6 +20,7 @@ const billRoute = require("./routes/bill");
 const warrentyRoute = require("./routes/warrenty");
 const vehicleRoute = require("./routes/vehicle");
 const employeeRoute = require("./routes/employee");
+const reservationRoute = require("./routes/reservation");
 //database connetion
 mongoose
   .connect(process.env.MONGO_URL)
@@ -46,7 +47,7 @@ app.use("/api/bill", billRoute);
 app.use("/api/warrenty", warrentyRoute);
 app.use("/api/vehicle/", vehicleRoute);
 app.use("/api/employee/", employeeRoute);
-
+app.use("/api/reservation/", reservationRoute);
 //app running port
 app.listen(process.env.PORT || 5000, () => {
   console.log("BackEnd server online");
