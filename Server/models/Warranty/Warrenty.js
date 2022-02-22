@@ -10,7 +10,7 @@ const WarrentySchema = new mongoose.Schema(
     dateOfRepair: { type: String },
     warrantyTill: { type: String },
     technician: { type: String },
-    technicianContatNo: { type: String },
+    technicianContactNo: { type: String },
     vehicalBrand: { type: String },
     vehicalRegistrationNo: { type: String },
     engineCode: { type: String },
@@ -19,7 +19,6 @@ const WarrentySchema = new mongoose.Schema(
     injectorCode: { type: String },
     extraDetails: { type: String },
     img: { type: String },
-    billNo: { type: String },
     billID: { type: mongoose.SchemaTypes.ObjectId, ref: "Bill" },
   },
   { timestamps: true }
