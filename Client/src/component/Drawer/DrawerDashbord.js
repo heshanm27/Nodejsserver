@@ -14,6 +14,7 @@ import {
   Typography,
   useMediaQuery,
   useTheme,
+  Divider,
 } from "@material-ui/core";
 import NavListitem from "./NavListitem";
 import Dashroutes from "./DashbordRoute";
@@ -25,12 +26,12 @@ import Logo1 from "../../img/logo512.png";
 import Logo2 from "../../img/logo192.png";
 import clsx from "clsx";
 import { Outlet, useNavigate } from "react-router";
-import { ListIcon } from "@chakra-ui/react";
 import Brightness7Icon from "@material-ui/icons/Brightness7";
 import NightsStayIcon from "@material-ui/icons/NightsStay";
 import logo from "../../img/gm.png";
 import { useSelector, useDispatch } from "react-redux";
 import { changeDarkMode } from "../../Redux/DarkmodeSlice";
+import ListCollapse from "./ListCollapse";
 
 function DashBordDarwer() {
   const { darkModeSet } = useSelector((state) => state.darkMode);
@@ -118,6 +119,15 @@ function DashBordDarwer() {
               />
             );
           })}
+
+          <ListCollapse
+            TitleIcon="InboxIcon"
+            TitleText="Warranty"
+            ListItems={Dashroutes}
+            onclicks={closeNavigation}
+          />
+
+          <Divider style={{ width: "100%" }} />
           <ListItem
             button
             label={darkModeSet ? "DarkMode" : "LightMode"}

@@ -19,6 +19,7 @@ function NavListitem({ label, icon, activeIcon, path, onClick }) {
   return (
     /* menuitem class deafult if active is true menuitemative class will be set */
     <ListItem
+      disablePadding
       button
       key={label}
       onClick={() => {

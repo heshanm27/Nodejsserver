@@ -87,6 +87,7 @@ function App() {
             </Route>
           </Route>
           <Route path="/store" element={<Vehicle />} />
+          <Route path="/store/:id" element={<Vehicle />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>

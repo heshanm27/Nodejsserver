@@ -79,4 +79,7 @@ export const useStyles = makeStyles((theme) => ({
   mobileappBar: {
     width: `100%`,
   },
+  navigationTitle: {
+    color: "#9e9e9e",
+  },
 }));

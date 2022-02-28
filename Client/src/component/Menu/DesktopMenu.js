@@ -76,12 +76,15 @@ export default function DesktopMenu() {
     <div className={classes.root}>
       <AppBar position="static" className={classes.appbar} elevation={0}>
         <Toolbar className={classes.toolbar}>
-          <Link to="/" className={classes.title}>
+          {" "}
+          <Typography
+            variant={reslution ? "h7" : "h6"}
+            className={classes.title}
+            color="textPrimary"
+          >
             {" "}
-            <Typography variant={reslution ? "h7" : "h6"} color="textPrimary">
-              Rosacrd.com
-            </Typography>
-          </Link>
+            <Link to="/">Rosacrd.com</Link>
+          </Typography>
           <Navlink to="/store" name="Vehicles" color="primary" />
           {!curruntUser && (
             <Link to="/login">
@@ -96,7 +99,6 @@ export default function DesktopMenu() {
               </Button>
             </Link>
           )}
-
           {curruntUser && (
             <IconButton aria-label="delete" onClick={handleClick}>
               <Avatar
@@ -105,7 +107,6 @@ export default function DesktopMenu() {
               />
             </IconButton>
           )}
-
           <Menu
             id="simple-menu"
             anchorEl={anchor}
@@ -123,7 +124,6 @@ export default function DesktopMenu() {
             )}
             <MenuItem onClick={() => handleClose("logout")}>Logout</MenuItem>
           </Menu>
-
           <IconButton
             onClick={() => dispatch(changeDarkMode())}
             className={classes.btn}

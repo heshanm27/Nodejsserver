@@ -78,6 +78,12 @@ const useStyle = makeStyles((theme) => ({
       width: "100%",
     },
   },
+  cardActionBtn: {
+    "&:hover": {
+      backgroundColor: theme.palette.common.white,
+      color: theme.palette.common.black,
+    },
+  },
 }));
 
 export default function Vehicle() {
@@ -98,7 +104,7 @@ export default function Vehicle() {
   //pagination
 
   const [page, setPage] = useState(0);
-  const PER_PAGE = 10;
+  const PER_PAGE = 5;
 
   const handleSearch = (e) => {
     let target = e.target.value.toLowerCase();
@@ -253,16 +259,14 @@ export default function Vehicle() {
                                 <VehicleTable items={item} />
                               </CardContent>
                             </CardActionArea>
-                            <CardActions>
+                            <CardActions style={{ justifyContent: "center" }}>
                               <Button
-                                size="small"
+                                size="large"
                                 color="primary"
-                                variant="outlined"
+                                variant="contained"
+                                className={classes.cardActionBtn}
                               >
-                                Share
-                              </Button>
-                              <Button size="small" color="primary">
-                                Learn More
+                                See More
                               </Button>
                             </CardActions>
                           </Card>
