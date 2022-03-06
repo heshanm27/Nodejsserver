@@ -10,7 +10,7 @@ import Dashroutes from "./DashbordRoute";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import StarBorder from "@material-ui/icons/StarBorder";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
+import Inboxicon from "@material-ui/icons/MoveToInbox";
 import NavListitem from "./NavListitem";
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,9 +39,7 @@ function ListCollapse(props) {
       className={classes.root}
     >
       <ListItem button onClick={handleClick}>
-        <ListItemIcon>
-          <TitleIcon />
-        </ListItemIcon>
+        <ListItemIcon>{TitleIcon}</ListItemIcon>
         <ListItemText primary={TitleText} />
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItem>

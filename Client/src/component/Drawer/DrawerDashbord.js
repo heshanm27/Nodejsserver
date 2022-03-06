@@ -32,6 +32,7 @@ import logo from "../../img/gm.png";
 import { useSelector, useDispatch } from "react-redux";
 import { changeDarkMode } from "../../Redux/DarkmodeSlice";
 import ListCollapse from "./ListCollapse";
+import Inboxicon from "@material-ui/icons/MoveToInbox";
 
 function DashBordDarwer() {
   const { darkModeSet } = useSelector((state) => state.darkMode);
@@ -121,7 +122,7 @@ function DashBordDarwer() {
           })}
 
           <ListCollapse
-            TitleIcon="InboxIcon"
+            TitleIcon={<Inboxicon />}
             TitleText="Warranty"
             ListItems={Dashroutes}
             onclicks={closeNavigation}
